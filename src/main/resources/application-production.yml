@@ -1,0 +1,105 @@
+spring:
+  devtools:
+    livereload:
+      enabled: true
+  servlet:
+    multipart:
+      max-file-size: 104857600
+      max-request-size: 104857600
+  datasource:
+    url: ${SOBRO_DB_URL}
+    username: ${SOBRO_DB_USERNAME}
+    password: ${SOBRO_DB_PASSWORD}
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+
+primary:
+  datasource:
+    jdbc-url: ${LIVE_DB_URL}
+    username: ${LIVE_DB_USERNAME}
+    password: ${LIVE_DB_PASSWORD}
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    minimum-idle: 5
+    maximum-pool-size: 20
+    connection-timeout: 30000
+    connection-init-sql: SELECT 1
+    validation-timeout: 250
+
+secondary:
+  datasource:
+    jdbc-url: ${VOD_DB_URL}
+    username: ${VOD_DB_USERNAME}
+    password: ${VOD_DB_PASSWORD}
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    minimum-idle: 5
+    maximum-pool-size: 20
+    connection-timeout: 30000
+    connection-init-sql: SELECT 1
+    validation-timeout: 250
+
+platform:
+  aes256:
+    key: 1234567890123456
+
+jwt:
+  header: Authorization
+  secret: softbridge2021broadcastingserviceversion1lgUplusplatform2021and2023project
+  token-validity-in-seconds: 86400
+  type:
+    BRO: broadcasting-login
+    USER: user-login
+
+cloud:
+  aws:
+    credentials:
+      roleArn: 'arn:aws:iam::awsprdulsp:role/ULSP-DEVELOPER'
+      roleSessionName: i-01668b5e5a7231963
+      profileName: default
+    s3:
+      vodBucket: s3-ulsp-vod
+      recBucket: s3-ulsp-record
+      attachBucket: s3-ulsp-attach
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    cloudFront:
+      keyPairId: APKAIEOGSZTRJPROBS6A
+      privateKey: aws/privateKey_pod.der
+      fileDomain: file.qa.ulsp.uplus.co.kr
+      vodDomain: vod.qa.ulsp.uplus.co.kr
+      recDomain: rec.qa.ulsp.uplus.co.kr
+      signType: canned
+    whiteboard:
+      filePath: whiteboard
+
+logging:
+  config: classpath:log4j2.yml
+
+server:
+  port: 8080
+  max-http-header-size: 40000
+  tomcat:
+    remoteip:
+      remote-ip-header: x-forwarded-for
+      protocol-header: x-forwarded-proto
+    max-connections: 500
+    connection-timeout: 60
+    accept-count: 2000
+    threads:
+      min-spare: 100
+      max: 500
+    basedir: /
+    accesslog:
+      enabled: true
+      directory: /logs/pltfapi/accesslog/
+      file-date-format: yyyy-MM-dd-HH
+      pattern: "%h %l %u %t %r %s %b %{Referer}i %{User-Agent}i %D %{Cookie}i %p %a %{remote}p %{X-Forwarded-For}i"
+
+file:
+  monitoring:
+    path: monitoring
+    fileName:
+      roomRealTime: room/roomRealTime-%d{yyyyMMdd}.log
+
+temp:
+  path: /home/ec2-user/tmp/fileUpload

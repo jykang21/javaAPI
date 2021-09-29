@@ -1,0 +1,106 @@
+spring:
+  devtools:
+    livereload:
+      enabled: true
+  servlet:
+    multipart:
+      max-file-size: 104857600
+      max-request-size: 104857600
+  datasource:
+    url: jdbc:log4jdbc:mysql://rds-stg-ulsp-cluster.cluster-c3akalsq2r9y.ap-northeast-2.rds.amazonaws.com:3306/sobro?characterEncoding=utf8&useSSL=false
+    username: sobro
+    password: sobro!21
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+
+primary:
+  datasource:
+    jdbc-url: jdbc:log4jdbc:mysql://rds-stg-ulsp-cluster.cluster-c3akalsq2r9y.ap-northeast-2.rds.amazonaws.com:3306/live?characterEncoding=utf8&useSSL=false
+    username: live
+    password: live!21
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    minimum-idle: 5
+    maximum-pool-size: 20
+    connection-timeout: 30000
+    connection-init-sql: SELECT 1
+    validation-timeout: 250
+
+secondary:
+  datasource:
+    jdbc-url: jdbc:log4jdbc:mysql://rds-stg-ulsp-cluster.cluster-c3akalsq2r9y.ap-northeast-2.rds.amazonaws.com:3306/vod?characterEncoding=utf8&useSSL=false
+    username: vod
+    password: vod!21
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    minimum-idle: 5
+    maximum-pool-size: 20
+    connection-timeout: 30000
+    connection-init-sql: SELECT 1
+    validation-timeout: 250
+
+platform:
+  aes256:
+    key: 1234567890123456
+
+jwt:
+  header: Authorization
+  secret: softbridge2021broadcastingserviceversion1lgUplusplatform2021and2023project
+  token-validity-in-seconds: 86400
+  type:
+    BRO: broadcasting-login
+    USER: user-login
+
+cloud:
+  aws:
+    credentials:
+#      roleArn: 'arn:aws:iam::680121671461:role/ULSP-DEVELOPER'
+      roleArn: 'arn:aws:iam::awsstguls:role/ULSP-DEVELOPER'
+      roleSessionName: i-01668b5e5a7231963
+      profileName: default
+    s3:
+      vodBucket: s3-stg-ulsp-vod
+      recBucket: s3-stg-ulsp-record
+      attachBucket: s3-stg-ulsp-attach
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    cloudFront:
+      keyPairId: APKAI7FTZ4KR7EHKAWGQ
+      privateKey: aws/privateKey_stg.der
+      fileDomain: file.qa.ulsp.uplus.co.kr
+      vodDomain: vod.qa.ulsp.uplus.co.kr
+      recDomain: rec.qa.ulsp.uplus.co.kr
+      signType: canned
+    whiteboard:
+      filePath: whiteboard
+
+logging:
+  config: classpath:log4j2.yml
+
+server:
+  port: 8080
+  max-http-header-size: 40000
+  tomcat:
+    remoteip:
+      remote-ip-header: x-forwarded-for
+      protocol-header: x-forwarded-proto
+    max-connections: 500
+    connection-timeout: 60
+    accept-count: 2000
+    threads:
+      min-spare: 100
+      max: 500
+    basedir: /
+    accesslog:
+      enabled: true
+      directory: /logs/pltfapi/accesslog/
+      file-date-format: yyyy-MM-dd-HH
+      pattern: "%h %l %u %t %r %s %b %{Referer}i %{User-Agent}i %D %{Cookie}i %p %a %{remote}p %{X-Forwarded-For}i"
+
+file:
+  monitoring:
+    path: monitoring
+    fileName:
+      roomRealTime: room/roomRealTime-%d{yyyyMMdd}.log
+
+temp:
+  path: /home/ec2-user/tmp/fileUpload

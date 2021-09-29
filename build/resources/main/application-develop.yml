@@ -1,0 +1,84 @@
+spring:
+  devtools:
+    livereload:
+      enabled: true
+  servlet:
+    multipart:
+      max-file-size: 104857600
+      max-request-size: 104857600
+  datasource:
+    url: jdbc:log4jdbc:mysql://rds-dev-ulsp-vod-cluster-instance-1.cy0bc7iatjqf.ap-northeast-2.rds.amazonaws.com:3306/sobro?characterEncoding=utf8&useSSL=false
+    username: ulsp_admin
+    password: ulsp_admin!2021
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+
+primary:
+  datasource:
+    jdbc-url: jdbc:log4jdbc:mysql://rds-dev-ulsp-vod-cluster-instance-1.cy0bc7iatjqf.ap-northeast-2.rds.amazonaws.com:3306/dev_ulsp_live?characterEncoding=utf8&useSSL=false
+    username: live
+    password: live!21
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+
+secondary:
+  datasource:
+    jdbc-url: jdbc:log4jdbc:mysql://rds-dev-ulsp-vod-cluster-instance-1.cy0bc7iatjqf.ap-northeast-2.rds.amazonaws.com:3306/dev_ulsp_vod?characterEncoding=utf8&useSSL=false
+    username: vod
+    password: vod!21
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+
+server:
+  port: 8080
+  max-http-header-size: 400000
+  tomcat:
+    remoteip:
+      remote-ip-header: x-forwarded-for
+      protocol-header: x-forwarded-proto
+
+platform:
+  aes256:
+    key: 1234567890123456
+
+jwt:
+  header: Authorization
+  secret: softbridge2021broadcastingserviceversion1lgUplusplatform2021and2023project
+  token-validity-in-seconds: 86400
+  type:
+    BRO: broadcasting-login
+    USER: user-login
+
+cloud:
+  aws:
+    credentials:
+      roleArn: 'arn:aws:iam::400661667959:role/ULSP-DEVELOPER'
+      roleSessionName: i-01668b5e5a7231963
+      profileName: default
+    s3:
+      vodBucket: s3-dev-ulsp-vod
+      recBucket: s3-dev-ulsp-record
+      attachBucket: s3-dev-ulsp-attach
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    cloudFront:
+      keyPairId: APKAIEOGSZTRJPROBS6A
+      privateKey: aws/privateKey_dev.der
+      fileDomain: file.dev.ulsp.uplus.co.kr
+      vodDomain: vod.dev.ulsp.uplus.co.kr
+      recDomain: rec.dev.ulsp.uplus.co.kr
+      signType: canned
+    whiteboard:
+      filePath: whiteboard
+      
+file:
+  monitoring:
+    path: monitoring
+    fileName:
+      roomRealTime: room/roomRealTime-%d{yyyyMMdd}.log
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+
+temp:
+  path: /home/ec2-user/tmp/fileUpload

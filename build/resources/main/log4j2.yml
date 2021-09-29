@@ -1,0 +1,165 @@
+Configutation:
+  name: Default
+  status: warn
+
+  Properties:
+    Property:
+      name: log-path
+      value: "logs"
+
+  Appenders:
+    Console:
+      name: Console_Appender
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+    #File:
+    #  name: File_Appender
+    #  fileName: ${log-path}/logfile.log
+    #  PatternLayout:
+    #    pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+    #RollingFile:
+    #  - name: RollingFile_Appender
+    #    fileName: ${log-path}/rollingfile.log
+    #    filePattern: "logs/archive/rollingfile.log.%d{yyyy-MM-dd-hh-mm}.gz"
+    #    PatternLayout:
+    #      pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+    #    Policies:
+    #      SizeBasedTriggeringPolicy:
+    #        size: 1 KB
+    #    DefaultRollOverStrategy:
+    #      max: 30
+#    RollingFile:
+#      - name: Error_Appender
+#        fileName: ${log-path}/errorLog.log
+#        filePattern: "logs/archive/errorLogs.%d{yyyyMMdd_hh}.gz"
+#        PatternLayout:
+#          pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+#        Policies:
+#          SizeBasedTriggeringPolicy:
+#            size: 1 KB
+#        DefaultRollOverStrategy:
+#          max: 30
+#      - name: Warn_Appender
+#        fileName: ${log-path}/warnLog.log
+#        filePattern: "logs/archive/warnLogs.%d{yyyyMMdd_hh}.gz"
+#        PatternLayout:
+#          pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+#        Policies:
+#          SizeBasedTriggeringPolicy:
+#            size: 1 KB
+#        DefaultRollOverStrategy:
+#          max: 30
+#      - name: Fatal_Appender
+#        fileName: ${log-path}/fatalLog.log
+#        filePattern: "logs/archive/fatalLogs.%d{yyyyMMdd_hh}.gz"
+#        PatternLayout:
+#          pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+#        Policies:
+#          SizeBasedTriggeringPolicy:
+#            size: 1 KB
+#        DefaultRollOverStrategy:
+#          max: 30
+#      - name: Running_Appender
+#        fileName: ${log-path}/runLog.log
+#        filePattern: "logs/archive/runLogs.%d{yyyyMMdd_hh}.gz"
+#        PatternLayout:
+#          pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+#        Policies:
+#          SizeBasedTriggeringPolicy:
+#            size: 1 KB
+#        DefaultRollOverStrategy:
+#          max: 30
+#      - name: Tlo_Appender
+#        fileName: "/logs/pltfapi/tlo/PLTFAPI.log"
+#        filePattern: "/logs/pltfapi/tlo/%d{yyyyMMdd}/PLTFAPI.%d{yyyyMMddHHmm}.log"
+#        PatternLayout:
+#          pattern: "%msg%n"
+#        Policies:
+#          OnStartupTriggeringPolicy:
+#            minSize: 0
+#          cronTriggeringPolicy:
+#            schedule: 0 0/5 * * * ?
+#            evaluateOnStartup: true
+#        DefaultRollOverStrategy:
+#          max: 30
+  Loggers:
+    Root:
+      level: info
+      AppenderRef:
+        - ref: Console_Appender
+#        - ref: Running_Appender
+#        - ref: Error_Appender
+#        - ref: Warn_Appender
+#        - ref: Fatal_Appender
+    Logger:
+      - name: edu.project
+        additivity: false
+        level: debug
+        AppenderRef:
+          - ref: Console_Appender
+ #         - ref: Running_Appender
+ #         - ref: Error_Appender
+ #         - ref: Warn_Appender
+ #         - ref: Fatal_Appender
+
+#      - name: jdbc.connection
+#        additivity: false
+#        level: warn
+#        AppenderRef:
+#          - ref: Console_Appender
+#          - ref: Running_Appender
+#          - ref: Error_Appender
+#          - ref: Warn_Appender
+#          - ref: Fatal_Appender
+
+      - name: jdbc.audit
+        additivity: false
+        level: warn
+        AppenderRef:
+          - ref: Console_Appender
+
+      - name: jdbc.resultset
+        additivity: false
+        level: warn
+        AppenderRef:
+          - ref: Console_Appender
+#          - ref: Error_Appender
+#          - ref: Warn_Appender
+#          - ref: Fatal_Appender
+
+      - name: jdbc.sqlonly
+        additivity: false
+        level: warn
+        AppenderRef:
+          - ref: Console_Appender
+#          - ref: Error_Appender
+#          - ref: Warn_Appender
+#          - ref: Fatal_Appender
+
+      - name: jdbc.sqltiming
+        additivity: false
+        level: debug
+        AppenderRef:
+          - ref: Console_Appender
+#          - ref: Running_Appender
+#          - ref: Error_Appender
+#          - ref: Warn_Appender
+#          - ref: Fatal_Appender
+
+      - name: jdbc.resultsettable
+        additivity: false
+        level: info
+        AppenderRef:
+          - ref: Console_Appender
+#          - ref: Running_Appender
+#          - ref: Error_Appender
+#          - ref: Warn_Appender
+#          - ref: Fatal_Appender
+
+#      - name: TLO
+#        additivity: false
+#        level: info
+#        AppenderRef:
+#          - ref: Console_Appender
+#          - ref: Tlo_Appender

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.softbridge.sobroplatform.commons.mapper.CommonTokenMapper">
+
+	<!-- TB_SOBRO_AUTH, TB_SVC_AUTH, TB_SVC_INFO 테이블 관련 XML -->
+
+	<select id="getSobroAuth" parameterType="map" resultType="kr.co.softbridge.sobroplatform.commons.dto.SobroAuthDto">
+		SELECT
+			TOKEN_IDX,
+			SITE_CODE,
+			TOKEN,
+			EXP_DATE,
+			REFRESH_YN,
+			REFRESH_TOKEN
+		FROM
+			TB_SOBRO_AUTH
+		WHERE
+			TOKEN = #{token}
+	</select>
+	
+	<select id="getSvcAuth" parameterType="map" resultType="kr.co.softbridge.sobroplatform.commons.dto.SvcAuthDto">
+		SELECT
+			SVC_AUTH_SEQ,
+			SVC_TOKEN_IDX,
+			SVC_CODE,
+			ROOM_TOKEN_IDX,
+			USE_YN
+		FROM
+			TB_SVC_AUTH
+		WHERE
+			SVC_TOKEN_IDX = #{svcTokenIdx}
+		AND SVC_CODE = #{svcCode}
+		<if test="roomTokenIdx != null and roomTokenIdx != ''">
+		AND ROOM_TOKEN_IDX = #{roomTokenIdx}
+		</if>
+		
+	</select>
+	
+	<select id="getSvcInfo" parameterType="map" resultType="kr.co.softbridge.sobroplatform.commons.dto.SvcInfoDto">
+		SELECT
+			SVC_SEQ,
+			SVC_CODE,
+			SVC_DOMAIN,
+			SVC_NM,
+			USE_YN
+		FROM
+			TB_SVC_INFO
+		WHERE
+			SVC_CODE = #{svcCode}
+	</select>
+	
+		<select id="getTokenIdx" parameterType="map" resultType="String">
+		SELECT FN_SEQUENCE('TB_SOBRO_AUTH', '', 'N')
+	</select>
+	
+	<insert id="insertToken" parameterType="map">
+		INSERT INTO TB_SOBRO_AUTH(
+			SITE_CODE,
+			TOKEN,
+			EXP_DATE
+		) VALUES (
+			#{siteCode},
+			#{token},
+			DATE_FORMAT(#{expDate}, '%Y-%m-%d %T')
+		)
+	</insert>
+	
+	<insert id="insertSvcAuth" parameterType="map">
+		INSERT INTO TB_SVC_AUTH
+			(
+			SVC_TOKEN_IDX,
+			SVC_CODE,
+			<if test="roomTokenIdx != null and roomTokenIdx != ''">
+			ROOM_TOKEN_IDX,
+			</if>
+			USE_YN
+			)VALUES(
+			#{svcTokenIdx},
+			#{svcCode},
+			<if test="roomTokenIdx != null and roomTokenIdx != ''">
+			#{roomTokenIdx},
+			</if>
+			'N')
+	</insert>
+	
+	<update id="updateSvcAuth" parameterType="map">
+		UPDATE TB_SVC_AUTH SET
+			ROOM_TOKEN_IDX = #{roomTokenIdx}
+		WHERE
+			SVC_TOKEN_IDX = #{svcTokenIdx}
+		AND SVC_CODE = #{svcCode}
+	</update>
+
+	
+</mapper>

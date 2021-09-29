@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.softbridge.sobroplatform.room.mapper.RoomMapper">
+	<!-- TB_ROOM_LIST 관련 XML -->
+	<select id="getRoomList" parameterType="map" resultType="kr.co.softbridge.sobroplatform.room.dto.RoomDto">
+		SELECT
+				trl.ROOM_CODE,
+				trl.TITLE,
+				trl.QUALITY,
+				trl.START_DT,
+				trl.END_DT,
+				trl.VIEW_YN,
+				trl.MAX_PEOPLE,
+				trl.ROOM_PW,
+				trl.ROOM_STATUS,
+				trl.MEMBER_ID,
+				trl.SVC_CODE
+			FROM
+				TB_ROOM_LIST trl
+			WHERE
+				trl.SVC_CODE = #{svcCode}
+			AND trl.ROOM_TYPE  = #{roomType}
+			AND trl.MEMBER_ID = #{userId}
+			<if test="roomStatus != null and roomStatus != ''">
+			AND trl.ROOM_STATUS = #{roomStatus}
+			</if>
+			<if test="viewYn != null and viewYn != ''">
+			AND trl.VIEW_YN = #{viewYn}
+			</if>
+			<if test="startDt != null and startDt != ''">
+			AND trl.START_DT <![CDATA[>=]]> DATE_FORMAT(#{startDt}, '%Y-%m-%d %T')
+			</if>
+			<if test="endDt != null and endDt != ''">
+			AND trl.END_DT <![CDATA[<=]]> DATE_FORMAT(#{endDt}, '%Y-%m-%d %T')
+			</if>
+			<if test="delYn != null and delYn != ''">
+			AND trl.DEL_YN = #{delYn}
+			</if>
+<!-- 			ORDER BY trl.START_DT DESC -->
+			LIMIT #{pageNum}, #{pageSize}
+	</select>
+	
+	<select id="getRoomLogRow" parameterType="map" resultType="kr.co.softbridge.sobroplatform.commons.dto.MonitoringRoomLogDto">
+		SELECT
+			trl.SVC_CODE,
+			'다자간영상회의' AS SVC_NM,
+			trl.ROOM_CODE,
+			trl.ROOM_TYPE,
+			trl.TITLE,
+			DATE_FORMAT(trl.START_DT, '%Y%m%d%H%I%S') AS START_DT,
+			DATE_FORMAT(trl.END_DT, '%Y%m%d%H%I%S') AS END_DT,
+			trl.MAX_PEOPLE AS ROOM_PEOPLE
+		FROM
+			TB_ROOM_LIST trl
+		WHERE
+			trl.SVC_CODE = #{svcCode}
+		AND trl.ROOM_CODE  = #{roomCode}
+	</select>
+	
+	<select id="checkUpdateRoomUser" parameterType="map" resultType="int">
+		SELECT COUNT(ROOM_CODE)
+		FROM TB_ROOM_LIST
+		WHERE SVC_CODE=#{svcCode} 
+        AND ROOM_CODE=#{roomCode}
+        AND ROOM_PW=#{oldRoomPw}
+        AND (MEMBER_ID=#{userId} OR REG_ID=#{userId})
+	</select>
+	
+	<select id="getRoomCode" resultType="String">
+		SELECT FN_SEQUENCE('TB_ROOM_LIST', '', 'N')
+	</select>
+	
+	<insert id="insertRoom" parameterType="map">
+		INSERT INTO TB_ROOM_LIST
+		(
+			SVC_CODE,
+			ROOM_CODE,
+			ROOM_TYPE,
+			ROOM_STATUS,
+			ROOM_PW,
+			TITLE,
+			QUALITY,
+			REC_TYPE,
+			VIEW_YN,
+			MAX_PEOPLE,
+			START_DT,
+			END_DT,
+			MEMBER_ID,
+			MEMBER_SEQ,
+			DEL_YN,
+			REG_ID,
+			REG_DT,
+			SCREEN_TYPE
+		)VALUES(
+			#{svcCode},
+			#{roomCode},
+			#{roomType},
+			#{roomStatus},
+			#{roomPw},
+			#{title},
+			#{quality},
+			#{recType},
+			#{viewYn},
+			#{maxPeople},
+			#{startDt},
+			#{endDt},
+			#{memberId},
+			#{memberSeq},
+			'N',
+			#{regId},
+			DATE_FORMAT(#{nowTime}, '%Y-%m-%d %T'),
+			#{screenType}
+		)
+	</insert>
+	
+	<update id="updateRoom" parameterType="map">
+        UPDATE TB_ROOM_LIST SET
+			<if test="roomType != null">ROOM_TYPE = #{roomType},</if>
+			<if test="roomStatus != null">ROOM_STATUS= #{roomStatus},</if>
+			<if test="roomPw != null">ROOM_PW= #{roomPw},</if>
+			<if test="title != null">TITLE= #{title},</if>
+			<if test="quality != null">QUALITY= #{quality},</if>
+			<if test="recType != null">REC_TYPE= #{recType},</if>
+			<if test="viewYn != null">VIEW_YN= #{viewYn},</if>
+			<if test="maxPeople != null">MAX_PEOPLE= #{maxPeople},</if>
+			<if test="startDt != null">START_DT= #{startDt},</if>
+			<if test="endDt != null">END_DT= #{endDt},</if>
+			<if test="memberId != null">MEMBER_ID= #{memberId},</if>
+			<if test="memberSeq != null">MEMBER_SEQ= #{memberSeq},</if>
+			<if test="delYn != null">DEL_YN= #{delYn},</if>
+			<if test="screenType != null">SCREEN_TYPE= #{screenType},</if>
+			UDT_ID = #{udtId},
+			UDT_DT = DATE_FORMAT(#{nowTime}, '%Y-%m-%d %T')
+        WHERE SVC_CODE=#{svcCode} 
+        AND ROOM_CODE=#{roomCode}
+	
+	</update>
+	
+	<select id="checkRoomCnt" parameterType="map" resultType="kr.co.softbridge.sobroplatform.room.dto.RoomDto">
+		SELECT ROOM_CODE, SVC_CODE
+		FROM TB_ROOM_LIST
+		WHERE ROOM_CODE=#{roomCode}
+	</select>
+	
+	<select id="checkRoomManagerId" parameterType="map" resultType="string">
+		SELECT MEMBER_ID
+		FROM TB_ROOM_LIST
+		WHERE ROOM_CODE=#{roomCode}
+	</select>
+	
+	<select id="getRoomRow" 
+	parameterType="map" resultType="kr.co.softbridge.sobroplatform.room.dto.RoomCheckDto">
+		SELECT
+			trl.SVC_CODE,
+			trl.ROOM_CODE,
+			trl.ROOM_STATUS,
+			CASE WHEN trl.END_DT <![CDATA[>=]]> NOW() THEN 'Y' ELSE 'N' END AS CHECK_END_DT,
+			trl.REG_ID
+		FROM
+			TB_ROOM_LIST trl
+		WHERE
+			trl.SVC_CODE = #{svcCode}
+		AND trl.ROOM_CODE  = #{roomCode}
+		AND trl.DEL_YN = 'N'
+	</select>
+	
+	<update id="updateRoomStatus" parameterType="map">
+		UPDATE TB_ROOM_LIST SET ROOM_STATUS = #{roomStatus}
+		WHERE ROOM_CODE = #{roomCode}
+	</update>
+	
+	<delete id="deleteRoom" parameterType="map">
+		DELETE FROM TB_ROOM_LIST WHERE SVC_CODE = #{svcCode} AND ROOM_CODE = #{roomCode}
+	</delete>
+	
+	<delete id="deleteRoomUser" parameterType="map">
+		DELETE FROM TB_ROOM_USER WHERE SVC_CODE = #{svcCode} AND ROOM_CODE = #{roomCode}
+	</delete>
+	
+	<select id="getRoomTotalCount" parameterType="map" resultType="int">
+		SELECT
+				COUNT(*)
+			FROM
+				TB_ROOM_LIST trl
+			WHERE
+				trl.SVC_CODE = #{svcCode}
+			AND trl.ROOM_TYPE  = #{roomType}
+			AND trl.MEMBER_ID = #{userId}
+			<if test="roomStatus != null and roomStatus != ''">
+			AND trl.ROOM_STATUS = #{roomStatus}
+			</if>
+			<if test="viewYn != null and viewYn != ''">
+			AND trl.VIEW_YN = #{viewYn}
+			</if>
+			<if test="startDt != null and startDt != ''">
+			AND trl.START_DT <![CDATA[>=]]> DATE_FORMAT(#{startDt}, '%Y-%m-%d %T')
+			</if>
+			<if test="endDt != null and endDt != ''">
+			AND trl.END_DT <![CDATA[<=]]> DATE_FORMAT(#{endDt}, '%Y-%m-%d %T')
+			</if>
+			<if test="delYn != null and delYn != ''">
+			AND trl.DEL_YN = #{delYn}
+			</if>
+	</select>
+
+</mapper>

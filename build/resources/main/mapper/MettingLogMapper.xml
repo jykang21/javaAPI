@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.softbridge.sobroplatform.meetinglog.mapper.MettingLogMapper">
+	<select id="getMeetingLog" parameterType="map"
+	 resultType="kr.co.softbridge.sobroplatform.meetinglog.dto.MeetingLogDto">
+		SELECT 
+			MEETING_LOG_SEQ
+			, ROOM_CODE
+			, CONTENTS
+		FROM TB_MEETING_LOG_INFO
+		WHERE ROOM_CODE = #{roomCode}
+	</select>
+	
+	<select id="getMeetingLogCnt" parameterType="map" resultType="int">
+		SELECT 
+			COUNT(MEETING_LOG_SEQ) AS CNT
+		FROM TB_MEETING_LOG_INFO
+		WHERE ROOM_CODE = #{roomCode}
+	</select>
+	
+	<insert id="insertMettingLog" parameterType="map">
+		INSERT INTO TB_MEETING_LOG_INFO(
+			ROOM_CODE
+			, CONTENTS
+			, REG_DT
+		) VALUES (
+			#{roomCode}
+			, #{contents}
+			, NOW()
+		)
+	</insert>
+	
+	<update id="updateMettingLog" parameterType="map">
+		UPDATE TB_MEETING_LOG_INFO
+			SET 
+				CONTENTS = #{contents}
+				, UPT_DT = NOW()
+		WHERE ROOM_CODE = #{roomCode}
+	</update>
+</mapper>

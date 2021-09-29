@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.softbridge.sobroplatform.sample.mapper.SampleMapper">
+	<select id="getUserInfo" parameterType="kr.co.softbridge.sobroplatform.commons.dto.TokenReqDto" resultType="kr.co.softbridge.sobroplatform.commons.dto.UserDto">
+		SELECT 
+				MEMBER_ID AS userId			/* 사용자 ID */
+				, MEMBER_SEQ AS userSeq		/* 사용자 순번 */
+				, MEMBER_PW AS password		/* 사용자 비밀번호 */
+				, MEMBER_NM	AS userName		/* 사용자 이름 */
+				, MEMBER_LEVEL AS userLevel	/* 사용자 레벨 */
+				, MEMBER_EMAIL AS userMail	/* 사용자이메일 */
+				, DEL_YN AS delYn			/* 삭제 여부 */
+				, GROUP_CODE AS groupCode	/* 그룹 코드 */
+				, GROUP_SEQ AS groupSeq		/* 그룹 순번 */
+		 FROM	TB_MEMBER_INFO
+		WHERE	MEMBER_EMAIL = #{email}
+		  AND	MEMBER_PW = #{password}
+	</select>
+
+</mapper>

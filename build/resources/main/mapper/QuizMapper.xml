@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.softbridge.sobroplatform.quiz.mapper.QuizMapper">
+	<!-- quizNo 조회 -->
+	<select id="getQuizNo" resultType="String">
+		SELECT FN_SEQUENCE('TB_QUIZ_INFO', '', 'N')
+	</select>
+	
+	<!-- quizInfo 저장 -->
+	<insert id="insertQuizInfo" parameterType="map">
+		INSERT INTO TB_QUIZ_INFO(QUIZ_NO, QUIZ_SUB_NO, ROOM_CODE, TITLE, CONTENTS, STATUS, RUNNING_TIME, QUIZ_ANSWER, DEL_YN, REG_ID, REG_DT)
+		VALUES(#{quizNo}, #{quizSubNo}, #{roomCode}, #{title}, #{contents}, #{status}, #{runningTime}, #{quizAnswer}, #{delYn}, #{regId}, NOW())
+			
+	</insert>
+	
+	<!-- quizDtl 저장 -->
+	<insert id="insertQuizDtl" parameterType="map">
+		INSERT INTO TB_QUIZ_DTL(QUIZ_NO, QUIZ_SUB_NO, OPTION_NO, OPTION_CONTENTS, DEL_YN)
+		VALUES(#{quizNo}, #{quizSubNo}, #{optionNo}, #{optionContents}, #{delYn})
+	</insert>
+	
+	<!-- quizInfo 리스트 조회 -->
+	<select id="getQuizInfoList" parameterType="map" resultType="kr.co.softbridge.sobroplatform.quiz.dto.QuizListDto">
+		SELECT
+			SUB_DATA.QUIZ_NO,
+			SUB_DATA.TITLE,
+			SUB_DATA.STATUS,
+			SUB_DATA.START_DT,
+			SUB_DATA.RUNNING_TIME
+		FROM
+		(
+			SELECT
+				QUIZ_NO,
+				QUIZ_SUB_NO,
+				TITLE,
+				STATUS,
+				START_DT,
+				RUNNING_TIME
+			FROM
+				TB_QUIZ_INFO
+			WHERE
+				ROOM_CODE = #{roomCode}
+			AND DEL_YN = 'N'
+			<if test="status != null and status != ''">
+			AND STATUS = #{status}
+			</if>
+			ORDER BY REG_DT DESC, QUIZ_NO DESC
+		) SUB_DATA
+		WHERE
+			SUB_DATA.QUIZ_SUB_NO = 1
+<!-- 		LIMIT #{start} OFFSET #{limitRowNum} -->
+	</select>
+	
+	<!-- quizInfo 리스트 조회 -->
+	<select id="getQuizInfo" parameterType="map" resultType="kr.co.softbridge.sobroplatform.quiz.dto.QuizInfoQueryDto">
+		SELECT
+			QUIZ_NO,
+			QUIZ_SUB_NO,
+			TITLE,
+			CONTENTS,
+			STATUS,
+			START_DT,
+			RUNNING_TIME,
+			QUIZ_ANSWER,
+			DEL_YN,
+			REG_ID
+		FROM
+			TB_QUIZ_INFO
+		WHERE
+			ROOM_CODE = #{roomCode}
+		AND DEL_YN = 'N'
+		AND QUIZ_NO = #{quizNo}
+		<if test="status != null and status!=''">
+		AND STATUS = #{status}
+		</if>
+		ORDER BY REG_DT DESC
+	</select>
+	
+	<!-- quizInfo 체크 -->
+	<select id="getQuizInfoCount" parameterType="map" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			TB_QUIZ_INFO
+		WHERE
+			ROOM_CODE = #{roomCode}
+		AND QUIZ_NO = #{quizNo}
+		<if test="quizSubNo != null and quizSubNo != ''">
+		AND QUIZ_SUB_NO = #{quizSubNo}
+		</if>
+	</select>
+	
+	<!-- quizDtl 리스트 조회 -->
+	<select id="getQuizDtl" parameterType="map" resultType="kr.co.softbridge.sobroplatform.quiz.dto.QuizDtlDto">
+		SELECT
+			QUIZ_NO,
+			QUIZ_SUB_NO,
+			OPTION_NO,
+			OPTION_CONTENTS,
+			DEL_YN
+		FROM
+			TB_QUIZ_DTL
+		WHERE
+			QUIZ_NO = #{quizNo}
+		AND QUIZ_SUB_NO = #{quizSubNo}
+		AND DEL_YN = 'N'
+		ORDER BY OPTION_NO ASC
+	</select>
+	
+	<!-- quizDtl 리스트 조회 -->
+	<select id="getQuizDtlCount" parameterType="map" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			TB_QUIZ_DTL
+		WHERE
+			QUIZ_NO = #{quizNo}
+		<if test="quizSubNo != null and quizSubNo != ''">
+		AND QUIZ_SUB_NO = #{quizSubNo}
+		</if>
+		<if test="optionNo != null and optionNo != ''">
+		AND OPTION_NO = #{optionNo}
+		</if>
+	</select>
+	
+	<!-- quizInfo 수정 -->
+	<update id="updateQuizInfo" parameterType="map">
+		UPDATE TB_QUIZ_INFO
+		SET
+			<if test="title != null and title !=''">
+			TITLE = #{title},
+			</if>
+			<if test="contents != null and contents !=''">
+			CONTENTS = #{contents},
+			</if>
+			<if test="status != null and status !=''">
+			STATUS = #{status},
+			</if>
+			<if test='start != null and start == "Y"'>
+			START_DT = NOW(),
+			</if>
+			<if test="runningTime != null and runningTime !=''">
+			RUNNING_TIME = #{runningTime},
+			</if>
+			<if test="quizAnswer != null and quizAnswer !=''">
+			QUIZ_ANSWER = #{quizAnswer},
+			</if>
+			<if test="delYn != null and delYn !=''">
+			DEL_YN = #{delYn},
+			</if>
+			UPT_ID = #{uptId},
+			UPT_DT = NOW()
+		WHERE
+			QUIZ_NO = #{quizNo}
+		<if test="quizSubNo != null and quizSubNo != ''">	
+		AND QUIZ_SUB_NO = #{quizSubNo}
+		</if>
+		ANd ROOM_CODE = #{roomCode}
+	
+	</update>
+	
+	<!-- quizDtl 수정 -->
+	<update id="updateQuizDtl" parameterType="map">
+		UPDATE TB_QUIZ_DTL
+		SET
+			<if test="optionContents != null and optionContents !=''">
+			OPTION_CONTENTS = #{optionContents},
+			</if>
+			DEL_YN = #{delYn}
+		WHERE
+			QUIZ_NO = #{quizNo}
+		AND QUIZ_SUB_NO = #{quizSubNo}
+		AND OPTION_NO = #{optionNo}
+	</update>
+	
+	<!-- quizInfo 삭제 -->
+	<update id="updateQuizInfoDelYn" parameterType="map">
+		UPDATE TB_QUIZ_INFO SET DEL_YN = 'Y', UPT_ID = #{uptId}, UPT_DT = NOW()
+		WHERE QUIZ_NO = #{quizNo}
+	</update>
+	
+	<!-- quizDtl 삭제 -->
+	<update id="updateQuizDtlDelYn" parameterType="map">
+		UPDATE TB_QUIZ_DTL SET DEL_YN = 'Y' WHERE QUIZ_NO = #{quizNo}
+	</update>
+	
+	<insert id="insertQuizUser" parameterType="map">
+		INSERT INTO TB_QUIZ_USER(QUIZ_NO, QUIZ_SUB_NO, USER_ID, USER_NM, USER_STATUS, SUBMIT_ANSWER)
+		VALUES(#{quizNo}, #{quizSubNo}, #{userId}, #{userNm}, #{userStatus}, #{submitAnswer})
+	</insert>
+	
+	<!-- quizUser 조회 -->
+	<select id="getQuizUser" parameterType="map" resultType="kr.co.softbridge.sobroplatform.quiz.dto.QuizUserDto">
+		SELECT 
+			QUIZ_NO,
+			QUIZ_SUB_NO,
+			USER_ID,
+			USER_NM,
+			USER_STATUS,
+			SUBMIT_ANSWER
+		FROM
+			TB_QUIZ_USER
+		WHERE
+			QUIZ_NO = #{quizNo}
+		AND QUIZ_SUB_NO = #{quizSubNo}
+		<if test="optionNo != null and optionNo != ''">
+		AND SUBMIT_ANSWER = #{optionNo}
+		</if>
+		<if test="userStatus != null and userStatus != ''">
+		AND USER_STATUS = #{userStatus}
+		</if>
+	</select>
+	
+	<!-- quizUser 조회(optionNo가 없으면 totalCount용) -->
+	<select id="getQuizUserCount" parameterType="map" resultType="int">
+		SELECT 
+			COUNT(*)
+		FROM
+			TB_QUIZ_USER
+		WHERE
+			QUIZ_NO = #{quizNo}
+		AND QUIZ_SUB_NO = #{quizSubNo}
+		<if test="optionNo != null and optionNo != ''">
+		AND SUBMIT_ANSWER = #{optionNo}
+		</if>
+	</select>
+	
+	<delete id="deleteQuizInfo" parameterType="map">
+		DELETE FROM TB_QUIZ_INFO WHERE QUIZ_NO = #{quizNo}
+	</delete>
+	
+	<delete id="deleteQuizDtl" parameterType="map">
+		DELETE FROM TB_QUIZ_DTL WHERE QUIZ_NO = #{quizNo}
+	</delete>
+</mapper>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.softbridge.sobroplatform.login.mapper.LoginMapper">
+	<!-- 사용자명 검증 -->
+	<select id="checkRoomUser" parameterType="map" resultType="kr.co.softbridge.sobroplatform.login.dto.LiveUserDto">
+		SELECT 
+				ROOM_CODE			/* 방송코드 */
+				, USER_ID		/* 사용자 ID */
+				, USER_NM		/* 사용자 이름 */
+				, USER_LEVEL	/* 사용자 레벨 */
+		 FROM	TB_ROOM_USER
+		WHERE	ROOM_CODE = #{roomCode}
+		  AND	USER_NM = #{userNm}
+		  <if test="type == 'roomIn'">
+		  AND END_DT <![CDATA[>=]]> DATE_FORMAT(#{nowTime}, '%Y%m%d%H%I%S')
+		  </if>								
+	</select>
+	
+	<select id="getRoomUser" parameterType="map" resultType="kr.co.softbridge.sobroplatform.login.dto.LiveUserDto">
+		SELECT 
+				U.ROOM_CODE			/* 방송코드 */
+				, U.USER_ID		/* 사용자 ID */
+				, U.USER_NM		/* 사용자 이름 */
+				, U.USER_LEVEL	/* 사용자 레벨 */
+				, U.TOKEN_IDX		/* 토큰 인덱스 */
+				, U.SVC_CODE		/* 서비스 코드 */
+				, L.MEMBER_ID AS MANAGER_ID	/* 매니저ID */
+		 FROM	TB_ROOM_USER U
+		 JOIN	TB_ROOM_LIST L
+		   ON	U.ROOM_CODE = L.ROOM_CODE
+		WHERE	U.ROOM_CODE = #{roomCode}
+		<if test="userId != null and userId != ''">
+			AND	U.USER_ID = #{userId}
+		</if>
+	</select>
+	
+	<select id="getRoom" parameterType="map" resultType="kr.co.softbridge.sobroplatform.commons.dto.RoomDto">
+		SELECT 
+				ROOM_CODE		/* 방송 코드 */
+				, ROOM_TYPE		/* 방송 타입 */
+				, MEMBER_ID		/* 사용자 ID */
+				, MEMBER_SEQ	/* 사용자 순번 */
+				, MAX_PEOPLE	/* 최대 참여자 수 */
+				, TITLE			/* 제목 */
+				, QUALITY		/* 방송 품질(0: 참여자수, 1: 128, 2: 256, 3: 512, 4: 1024, 5: 2048, 6: 4096, 7: 8192) */
+				, START_DT		/* 방송 시작날짜 */
+				, END_DT		/* 방송 종료날짜 */
+				, VIEW_YN		/* 노출 여부 */
+				, ROOM_PW		/* 방송 비밀번호 */
+				, ROOM_STATUS	/* 방송 상태 */
+				, REC_TYPE		/* 녹화 타입 */
+				, DEL_YN		/* 삭제 여부 */
+				, SVC_CODE		/* 서비스 코드 */
+				, SCREEN_TYPE
+				, CASE WHEN DATE_FORMAT(#{nowTime}, '%Y%m%d%H%I%S') <![CDATA[<]]> START_DT THEN 'Y' ELSE 'N' END AS START_ARRIVAL
+		 FROM	TB_ROOM_LIST
+		 <choose>
+		 	<when test="type=='roomIn'">
+		 		WHERE	DEL_YN = 'N'
+                  <!-- AND	CASE WHEN ROOM_STATUS <![CDATA[<>]]> '02' THEN NOW() BETWEEN START_DT AND END_DT ELSE ROOM_STATUS = '02' END -->
+           		  AND	ROOM_CODE = #{roomCode}
+<!--            		  AND	ROOM_PW = #{password} -->
+		 	</when>
+		 	<when test="type=='roomOut'">
+		 		WHERE	DEL_YN = 'N'
+           		  AND	ROOM_CODE = #{roomCode}
+		 	</when>
+		 	<otherwise>
+		 		<!-- 로그인 외 조회조건 -->
+		 		WHERE	DATE_FORMAT(#{nowTime}, '%Y%m%d%H%I%S') BETWEEN START_DT AND END_DT
+           		  AND	DEL_YN = 'N'
+           		  AND	ROOM_CODE = #{roomCode}
+		 	</otherwise>
+		 </choose>						
+	</select>
+	
+	<!-- USER ID가 없는 경우 시퀀스로 대체하기 위해 시퀀스가져온다. -->
+	<select id="getUserId" parameterType="map" resultType="String">
+		SELECT FN_SEQUENCE('TB_ROOM_USER', 'RU', 'Y')
+	</select>
+	
+	<insert id="insertRoomUser" parameterType="map">
+		INSERT INTO TB_ROOM_USER(
+			ROOM_CODE		/* 방송코드 */
+			, USER_ID		/* 사용자 ID */
+			, USER_NM		/* 사용자 이름 */
+			, USER_LEVEL	/* 사용자 레벨 */
+			, START_DT
+			, END_DT
+			, SVC_CODE
+			, TOKEN_IDX
+		) VALUES (
+			#{roomCode}
+			, #{userId}
+			, #{userNm}
+			, #{userLevel}
+			, DATE_FORMAT(#{nowTime}, '%Y-%m-%d %T')
+			, DATE_ADD(DATE_FORMAT(#{nowTime}, '%Y-%m-%d %T'), INTERVAL 2 MONTH)
+			, #{svcCode}
+			, 1
+		)
+	</insert>
+	
+	<select id="getTokenInfo" parameterType="map" resultType="kr.co.softbridge.sobroplatform.commons.dto.TokenResDto">
+		SELECT
+			TOKEN_IDX,
+			SITE_CODE,
+			TOKEN,
+			EXP_DATE
+		FROM
+			TB_SOBRO_AUTH
+		WHERE
+			TOKEN = #{token}
+		<if test="tokenIdx != null and tokenIdx !=''">
+		AND TOKEN_IDX = #{tokenIdx}	
+		</if>
+	</select>
+	
+	<select id="getRoomUserCount" parameterType="map" resultType="int">
+		<![CDATA[
+		SELECT COUNT(USER_ID) AS CNT
+		  FROM TB_ROOM_USER RU
+		  JOIN TB_SOBRO_AUTH SA
+		    ON RU.TOKEN_IDX = SA.TOKEN_IDX
+		   AND SA.EXP_DATE >= DATE_FORMAT(#{nowTime}, '%Y-%m-%d %T')
+		 WHERE RU.ROOM_CODE = #{roomCode}
+		   AND RU.USER_ID <> #{userId} 
+		]]>
+	</select>
+	
+	<update id="updateTokenExp" parameterType="map">
+		UPDATE TB_SOBRO_AUTH SET
+			EXP_DATE = DATE_FORMAT(#{nowTime}, '%Y-%m-%d %T')
+		WHERE TOKEN = #{token} AND SITE_CODE = #{siteCode} AND TOKEN_IDX = #{tokenIdx}
+	</update>
+	
+	<update id="updateRoomUserTokenIdx" parameterType="map">
+		UPDATE TB_ROOM_USER SET 
+			TOKEN_IDX = #{tokenIdx}
+		WHERE SVC_CODE = #{svcCode} AND ROOM_CODE = #{roomCode} AND USER_ID = #{userId}
+	</update>
+	
+	<update id="updateRoomUserEndDate" parameterType="map">
+		UPDATE TB_ROOM_USER SET
+			END_DT = DATE_FORMAT(#{nowTime}, '%Y-%m-%d %T')
+		WHERE SVC_CODE = #{svcCode} AND ROOM_CODE = #{roomCode} AND USER_ID = #{userId}	
+	</update>
+	
+	<select id="roomPeople" parameterType="map" resultType="int">
+		SELECT
+		    COUNT(*)
+		FROM TB_ROOM_USER
+		WHERE ROOM_CODE = #{roomCode}
+		AND END_DT <![CDATA[>]]> DATE_FORMAT(#{nowTime}, '%Y-%m-%d %T')
+	</select>
+	
+	<select id="getSvcInfoCnt" parameterType="map" resultType="int">
+		SELECT
+		    COUNT(*)
+		FROM TB_SVC_INFO
+		WHERE SVC_CODE = #{svcCode}
+		AND SVC_DOMAIN = #{svcDomain}
+		AND USE_YN = 'Y'
+	</select>
+	
+	<select id="getSvcInfo" parameterType="map" resultType="kr.co.softbridge.sobroplatform.commons.dto.SvcInfoDto">
+		SELECT
+		    SVC_SEQ,
+		    SVC_CODE,
+		    SVC_DOMAIN,
+		    SVC_NM,
+		    USE_YN
+		FROM TB_SVC_INFO
+		WHERE SVC_CODE = #{svcCode}
+		<if test="svcDomain != null and svcDomain != ''">
+		AND SVC_DOMAIN = #{svcDomain}
+		</if>
+		AND USE_YN = 'Y'
+	</select>
+</mapper>

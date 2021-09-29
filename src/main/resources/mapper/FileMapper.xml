@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.softbridge.sobroplatform.file.mapper.FileMapper">
+	<!-- TB_FILE_MASTER, TB_FILE_MANAGER, TB_FILE_SHARE_TARGET, TB_FILE_SHARE_GROUP 관련 XML -->
+    <select id="getNextSequenceByRoomCode" parameterType="string" resultType="int">
+        SELECT COUNT(ROOM_CODE) + 1 AS NEXT_SEQUENCE
+        FROM TB_FILE_MANAGER
+        WHERE ROOM_CODE = #{room_code};
+    </select>
+    <!-- 파일기본 등록 -->
+    <insert id="saveFileMaster" parameterType="kr.co.softbridge.sobroplatform.file.dto.FileUploadRequestDto">
+        INSERT INTO TB_FILE_MASTER
+            (
+				SVC_CODE
+				, SVC_TARGET
+				, VIEW_YN
+				, START_DT
+				, END_DT
+				, SHARE_TYPE
+				, REG_ID
+				, REG_DT
+            )
+        VALUES
+            (
+             #{svcCode},
+             #{svcTarget},
+             #{viewYn},
+             #{startDt, jdbcType=TIMESTAMP},
+             #{endDt, jdbcType=TIMESTAMP},
+             #{shareType},
+             #{regId},
+             #{regDt, jdbcType=TIMESTAMP}
+            )
+		<selectKey resultType="int" keyProperty="FILE_SEQ">
+			SELECT LAST_INSERT_ID()
+      	</selectKey>
+    </insert>
+    
+	<!-- 파일상세 등록 -->
+    <insert id="saveFileManager" parameterType="kr.co.softbridge.sobroplatform.file.dto.FileUploadRequestDto">
+        INSERT INTO TB_FILE_MANAGER
+            (
+				FILE_SEQ
+				, ROOM_CODE
+				, FILE_URL
+				, FILE_TYPE
+				, FILE_NM
+				, FILE_PATH
+				, FILE_EXT
+				, FILE_SIZE
+				, REG_ID
+				, REG_DT
+				, DEL_YN
+            )
+        VALUES
+            (
+				#{fileSeq},
+				#{roomCode},
+				#{fileUrl},
+				#{fileType},
+				#{fileNm},
+				#{filePath},
+				#{fileExt},
+				#{fileSize},
+				#{regId},
+				#{regDt, jdbcType=TIMESTAMP},
+				#{delYn}
+            )
+    </insert>
+    
+	<!-- 파일공유 그룹등록 -->
+    <insert id="saveFileShareGroup" parameterType="kr.co.softbridge.sobroplatform.file.dto.FileUploadRequestDto">
+        INSERT INTO TB_FILE_SHARE_GROUP
+            (
+				FILE_SEQ
+				, TARGET_GROUP
+            )
+        VALUES
+            (
+				#{fileSeq},
+				#{targetGroup}
+            )
+    </insert>
+    
+    <!-- 파일공유 대상등록 -->
+    <insert id="saveFileShareTarget" parameterType="kr.co.softbridge.sobroplatform.file.dto.FileUploadRequestDto">
+        INSERT INTO TB_FILE_SHARE_TARGET
+            (
+				FILE_SEQ
+				, TARGET_ID
+            )
+        VALUES
+            (
+				#{fileSeq},
+				#{targetId}
+            )
+    </insert>
+
+
+    <update id="deleteFile" parameterType="kr.co.softbridge.sobroplatform.file.dto.FileDeleteRequestDto">
+<!--         UPDATE TB_FILE_MANAGER -->
+<!--         SET UDT_ID = #{userId}, -->
+<!--             UDT_DT = #{udtDt}, -->
+<!--             DEL_YN = #{delYn} -->
+<!--         WHERE ROOM_CODE = #{roomCode} -->
+<!--         AND FILE_SEQ = #{fileSeq} -->
+		DELETE FROM TB_FILE_MANAGER WHERE ROOM_CODE = #{roomCode} AND FILE_SEQ = #{fileSeq}
+    </update>
+
+    <select id="getFileByIdToDeleteFile"
+            parameterType="kr.co.softbridge.sobroplatform.file.dto.FileDeleteRequestDto"
+            resultType="kr.co.softbridge.sobroplatform.file.dto.FileDeleteResponseDto"
+    >
+        SELECT ROOM_CODE,
+               FILE_SEQ,
+<!--                FILE_REAL_NM, -->
+               FILE_NM,
+               FILE_PATH,
+               FILE_TYPE,
+               VOD_TYPE,
+               REG_ID,
+               UDT_ID,
+               UDT_DT
+        FROM TB_FILE_MANAGER
+        WHERE ROOM_CODE = #{roomCode}
+        AND FILE_SEQ = #{fileSeq}
+    </select>
+    
+    <select id="getFileList" 
+    		parameterType="map" 
+    		resultType="kr.co.softbridge.sobroplatform.file.dto.FileListDto">
+    		<![CDATA[
+    		SELECT
+					F0.FILE_SEQ
+			        , F0.SVC_CODE
+			        , F0.SVC_TARGET
+			        , F1.ROOM_CODE
+			        , F0.VIEW_YN
+			        , DATE_FORMAT(F0.START_DT, '%Y-%m-%d %H:%i:%S') AS START_DT
+			        , DATE_FORMAT(F0.END_DT, '%Y-%m-%d %H:%i:%S') AS END_DT
+			        , F0.SHARE_TYPE
+			        , F1.FILE_URL
+			        , F1.FILE_TYPE
+			        , F1.FILE_NM
+			        , F1.FILE_PATH
+			        , F1.FILE_EXT
+			        , F1.FILE_SIZE
+			        , F1.DEL_YN
+			        , F0.REG_ID
+			        , '' AS REG_NM
+					, DATE_FORMAT(F0.REG_DT, '%Y-%m-%d %H:%i:%S') AS REG_DT
+					, F0.UDT_ID
+					, DATE_FORMAT(F0.UDT_DT, '%Y-%m-%d %H:%i:%S') AS UDT_DT
+			  FROM	TB_FILE_MASTER F0
+			  JOIN	(
+						SELECT FILE_SEQ FROM TB_FILE_MASTER	/* 전체공유된 파일 또는 자신이 공유한 파일 */
+						]]>
+						<choose>
+							<when test="userId != null and userId != ''">
+								WHERE (SHARE_TYPE = '01' OR REG_ID = #{userId})
+								UNION ALL
+								SELECT F1.FILE_SEQ 
+								FROM TB_FILE_MASTER F1	/* 자신에게 공유된 파일 */
+								JOIN TB_FILE_SHARE_TARGET ST
+								ON F1.FILE_SEQ = ST.FILE_SEQ
+								WHERE F1.SHARE_TYPE = '02' 
+								AND ST.TARGET_ID = #{userId}
+							</when>
+							<otherwise>
+								WHERE SHARE_TYPE = '01'
+							</otherwise>
+						</choose>
+						<if test="targetGroup != null and targetGroup != ''">
+							UNION ALL
+							SELECT F2.FILE_SEQ 
+							FROM TB_FILE_MASTER F2	/* 자신의 그룹에게 공유된 파일 */
+							JOIN TB_FILE_SHARE_GROUP SG
+							ON F2.FILE_SEQ = SG.FILE_SEQ
+							WHERE F2.SHARE_TYPE = '03'
+							AND SG.TARGET_GROUP = #{targetGroup}
+						</if>
+				<![CDATA[
+					) T
+				ON	F0.FILE_SEQ = T.FILE_SEQ
+			  JOIN	TB_FILE_MANAGER F1
+			    ON	F0.FILE_SEQ = F1.FILE_SEQ
+			    AND F1.DEL_YN = 'N'
+			    AND F1.ROOM_CODE = #{roomCode}
+			 WHERE	F0.SVC_CODE = #{svcCode}
+		   ]]>
+		   <if test="fileSeq != '' and fileSeq != null and fileSeq != '0'">
+		     AND F0.FILE_SEQ = #{fileSeq}
+		   </if>
+		   <if test="fileNm != '' and fileNm != null">
+		     AND F1.FILE_NM = #{fileNm}
+		   </if>
+		   <if test="shareType != '' and shareType != null">
+		     AND F0.SHARE_TYPE = #{shareType}
+		   </if>
+		   <if test="fileType != '' and fileType != null">
+		     AND F1.FILE_TYPE = #{fileType}
+		   </if>
+		   <if test="viewYn != '' and viewYn != null">
+		     AND F0.VIEW_YN = #{viewYn}
+		   </if>
+		   <if test="startDt != '' and startDt != null">
+		     AND F0.START_DT <![CDATA[<=]]> DATE_FORMAT(#{startDt}, '%Y-%m-%d %T')
+		   </if>
+		   <if test="endDt != '' and endDt != null">
+		     AND F0.END_DT <![CDATA[>=]]> DATE_FORMAT(#{endDt}, '%Y-%m-%d %T')
+		   </if>
+			ORDER BY F0.FILE_SEQ DESC
+			LIMIT #{pageNum}, #{pageSize}
+    </select>
+    
+    <select id="getFileListCount" parameterType="map" resultType="int">
+    		<![CDATA[
+    		SELECT
+					COUNT(*)
+			  FROM	TB_FILE_MASTER F0
+			  JOIN	(
+						SELECT FILE_SEQ FROM TB_FILE_MASTER	/* 전체공유된 파일 또는 자신이 공유한 파일 */
+						]]>
+						<choose>
+							<when test="userId != null and userId != ''">
+								WHERE (SHARE_TYPE = '01' OR REG_ID = #{userId})
+								UNION ALL
+								SELECT F1.FILE_SEQ 
+								FROM TB_FILE_MASTER F1	/* 자신에게 공유된 파일 */
+								JOIN TB_FILE_SHARE_TARGET ST
+								ON F1.FILE_SEQ = ST.FILE_SEQ
+								WHERE F1.SHARE_TYPE = '02' 
+								AND ST.TARGET_ID = #{userId}
+							</when>
+							<otherwise>
+								WHERE SHARE_TYPE = '01'
+							</otherwise>
+						</choose>
+						<if test="targetGroup != null and targetGroup != ''">
+							UNION ALL
+							SELECT F2.FILE_SEQ 
+							FROM TB_FILE_MASTER F2	/* 자신의 그룹에게 공유된 파일 */
+							JOIN TB_FILE_SHARE_GROUP SG
+							ON F2.FILE_SEQ = SG.FILE_SEQ
+							WHERE F2.SHARE_TYPE = '03'
+							AND SG.TARGET_GROUP = #{targetGroup}
+						</if>
+				<![CDATA[
+					) T
+				ON	F0.FILE_SEQ = T.FILE_SEQ
+			  JOIN	TB_FILE_MANAGER F1
+			    ON	F0.FILE_SEQ = F1.FILE_SEQ
+			    AND F1.DEL_YN = 'N'
+			    AND F1.ROOM_CODE = #{roomCode}
+			 WHERE	F0.SVC_CODE = #{svcCode}
+		   ]]>
+		   <if test="fileSeq != '' and fileSeq != null and fileSeq != '0'">
+		     AND F0.FILE_SEQ = #{fileSeq}
+		   </if>
+		   <if test="fileNm != '' and fileNm != null">
+		     AND F1.FILE_NM = #{fileNm}
+		   </if>
+		   <if test="shareType != '' and shareType != null">
+		     AND F0.SHARE_TYPE = #{shareType}
+		   </if>
+		   <if test="fileType != '' and fileType != null">
+		     AND F1.FILE_TYPE = #{fileType}
+		   </if>
+		   <if test="viewYn != '' and viewYn != null">
+		     AND F0.VIEW_YN = #{viewYn}
+		   </if>
+		   <if test="startDt != '' and startDt != null">
+		     AND F0.START_DT <![CDATA[<=]]> DATE_FORMAT(#{startDt}, '%Y-%m-%d %T')
+		   </if>
+		   <if test="endDt != '' and endDt != null">
+		     AND F0.END_DT <![CDATA[>=]]> DATE_FORMAT(#{endDt}, '%Y-%m-%d %T')
+		   </if>
+    </select>
+    
+    <update id="deleteShareTargetFile" parameterType="kr.co.softbridge.sobroplatform.file.dto.FileDeleteRequestDto">
+		DELETE FROM TB_FILE_SHARE_TARGET WHERE FILE_SEQ = #{fileSeq}
+    </update>
+    
+    <update id="deleteShareGroupFile" parameterType="kr.co.softbridge.sobroplatform.file.dto.FileDeleteRequestDto">
+		DELETE FROM TB_FILE_SHARE_GROUP WHERE FILE_SEQ = #{fileSeq}
+    </update>
+    
+    <update id="deleteMasterFile" parameterType="kr.co.softbridge.sobroplatform.file.dto.FileDeleteRequestDto">
+		DELETE FROM TB_FILE_MASTER WHERE FILE_SEQ = #{fileSeq}
+    </update>
+</mapper>

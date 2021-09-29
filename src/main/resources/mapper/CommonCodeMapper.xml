@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.softbridge.sobroplatform.commons.mapper.CommonCodeMapper">
+
+	<select id="getCodeList" parameterType="string" resultType="kr.co.softbridge.sobroplatform.commons.dto.CommonCodeDto">
+		SELECT
+			CODE_ID
+			, CODE_NM
+			, GRP_CODE
+			, CODE_DESC
+		FROM TB_CODE_DTL
+		WHERE GRP_CODE = #{grpCode}
+		  AND USE_YN = 'Y'
+	</select>	
+	
+	<select id="getApiServiceNo" resultType="String">
+		SELECT FN_APICALL_SEQUENCE('TB_API_CALL_HIST', 'ASN', 'Y')
+	</select>
+	
+	<select id="getRealTimeRoomList" parameterType="map" resultType="kr.co.softbridge.sobroplatform.commons.dto.MonitoringRealTimeRoomDto">
+	
+		SELECT 
+			SUB_DATA.ROOM_CODE
+		    , SUB_DATA.SVC_CODE
+		    , SI.SVC_NM
+		    , SUB_DATA.MEMBER_ID
+		    , SUB_DATA.TITLE
+		    , CD.CODE_NM AS ROOM_TYPE_NM
+		    , (
+				SELECT	COUNT(TRU.USER_ID) 
+				  FROM	TB_ROOM_USER TRU 
+		          WHERE TRU.ROOM_CODE = SUB_DATA.ROOM_CODE
+<!-- 				  AND	TRU.END_DT <![CDATA[>=]]> NOW() -->
+				  AND	TRU.END_DT <![CDATA[>=]]> DATE_FORMAT(#{nowTime}, '%Y-%m-%d %T')
+			  ) AS ONLINE_USER_CNT
+		    , SUB_DATA.START_DT
+		    , SUB_DATA.END_DT
+		FROM
+		(
+			SELECT
+				RL.ROOM_CODE,
+				RL.SVC_CODE,
+				RL.MEMBER_ID,
+				RL.TITLE,
+				RL.ROOM_TYPE,
+				RL.START_DT,
+				RL.END_DT
+			FROM 
+				TB_ROOM_LIST RL
+			WHERE
+				RL.SVC_CODE = #{svcCode}
+<!-- 			AND	RL.START_DT <![CDATA[<=]]> now() -->
+<!-- 			AND	RL.END_DT <![CDATA[>=]]> now() -->
+			AND	RL.START_DT <![CDATA[<=]]> DATE_FORMAT(#{nowTime}, '%Y-%m-%d %T')
+			AND	RL.END_DT <![CDATA[>=]]> DATE_FORMAT(#{nowTime}, '%Y-%m-%d %T')
+			AND	RL.DEL_YN = 'N'
+<!-- 			ORDER BY RL.START_DT DESC  -->
+			LIMIT #{pageNum}, #{pageSize}
+		) SUB_DATA
+		JOIN	TB_SVC_INFO SI
+		    ON	SI.SVC_CODE = SUB_DATA.SVC_CODE
+		JOIN	TB_CODE_DTL CD
+		    ON	CD.CODE_ID = SUB_DATA.ROOM_TYPE
+		   AND	CD.GRP_CODE = '01'
+	
+	</select>
+	
+	<select id="getRealTimeRoomListTotalCount" parameterType="map" resultType="int">
+	
+		SELECT
+			COUNT(*)
+		FROM 
+			TB_ROOM_LIST RL
+		WHERE
+			RL.SVC_CODE = #{svcCode}
+		AND	RL.START_DT <![CDATA[<=]]> DATE_FORMAT(#{nowTime}, '%Y-%m-%d %T')
+		AND	RL.END_DT <![CDATA[>=]]> DATE_FORMAT(#{nowTime}, '%Y-%m-%d %T')
+		AND	RL.DEL_YN = 'N'
+	</select>
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.softbridge.sobroplatform.sample.mapper.DataSourceOneMapper">
+
+    <select id="findBroadListByBroadCode" parameterType="String" resultType="kr.co.softbridge.sobroplatform.sample.dto.BroadListDto">
+        SELECT 
+               L.SVC_CODE,
+               L.ROOM_CODE,
+               L.MEMBER_ID AS MANAGER_ID,
+               U.USER_NM AS MANAGER_NICK,
+               L.MAX_PEOPLE,
+               L.TITLE,
+               L.QUALITY,
+               L.START_DT,
+               L.END_DT,
+               L.VIEW_YN,
+               L.ROOM_PW,
+               L.ROOM_STATUS,
+               L.REC_TYPE
+        FROM	TB_ROOM_LIST L
+		JOIN	TB_ROOM_USER U
+          ON	L.ROOM_CODE = U.ROOM_CODE
+		 AND	L.MEMBER_ID = U.USER_ID
+        WHERE	L.SVC_CODE = #{value}
+    </select>
+
+</mapper>

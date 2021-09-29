@@ -1,0 +1,157 @@
+spring:
+  profiles:
+    active: dev
+  devtools:
+    livereload:
+      enabled: true
+  servlet:
+    multipart:
+      max-file-size: 104857600
+      max-request-size: 104857600
+  datasource:
+    url: jdbc:log4jdbc:mysql://rds-sobro-cluster.cp0dvkjvgh6i.ap-northeast-2.rds.amazonaws.com:3306/TB_SOBRO_LIVE?characterEncoding=utf8
+    username: sobro_admin
+    password: anchor21**
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+
+primary:
+  datasource:
+    jdbc-url: jdbc:log4jdbc:mysql://rds-sobro-cluster.cp0dvkjvgh6i.ap-northeast-2.rds.amazonaws.com:3306/TB_SOBRO_LIVE?characterEncoding=utf8
+    username: sobro_admin
+    password: anchor21**
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    minimum-idle: 5
+    maximum-pool-size: 20
+    connection-timeout: 30000
+    connection-init-sql: SELECT 1
+    validation-timeout: 250
+
+secondary:
+  datasource:
+    jdbc-url: jdbc:log4jdbc:mysql://rds-sobro-cluster.cp0dvkjvgh6i.ap-northeast-2.rds.amazonaws.com:3306/TS_SOBRO_VOD?characterEncoding=utf8
+    username: sobro_admin
+    password: anchor21**
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    minimum-idle: 5
+    maximum-pool-size: 20
+    connection-timeout: 30000
+    connection-init-sql: SELECT 1
+    validation-timeout: 250
+
+platform:
+  aes256:
+    key: 1234567890123456
+
+jwt:
+  header: Authorization
+  secret: softbridge2021broadcastingserviceversion1lgUplusplatform2021and2023project
+  token-validity-in-seconds: 86400
+  type:
+    BRO: broadcasting-login
+    USER: user-login
+
+cloud:
+  aws:
+    credentials:
+# LGU DEV LOCAL TEST
+#      accessKey: AKIA6GQCCIBZMM6QYKXS
+#      secretKey: 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
+#      roleArn: 'arn:aws:iam::400661667959:role/ULSP-DEVELOPER'
+#      profileName: default
+      profilePath: src/main/resources/aws/credentials
+      roleArn: 'arn:aws:iam::976035659890:role/sobro-api-role'
+      roleSessionName: i-01668b5e5a7231963
+      profileName: sobro-api
+    s3:
+#      vodBucket: s3-dev-ulsp-vod
+#      recBucket: s3-dev-ulsp-record
+#      attachBucket: s3-dev-ulsp-attach
+       vodBucket: s3-dev-sobro-vod
+       recBucket: s3-dev-sobro-record
+       attachBucket: s3-dev-sobro-attach
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    cloudFront:
+#      keyPairId: APKAIEOGSZTRJPROBS6A
+#      privateKey: aws/privateKey_dev.der
+      keyPairId: APKAJXGTRP243GE623SA
+      privateKey: aws/cf-private-key.der
+      fileDomain: file.sobro.co.kr
+      vodDomain: vod.sobro.co.kr
+      recDomain: rec.sobro.co.kr
+#      fileDomain: file.dev.ulsp.uplus.co.kr
+#      vodDomain: vod.dev.ulsp.uplus.co.kr
+#      recDomain: rec.dev.ulsp.uplus.co.kr
+      signType: canned
+    whiteboard:
+      filePath: whiteboard
+
+logging:
+  config: classpath:log4j2.yml
+
+# 모니터링 파일위치정의
+file:
+  monitoring:
+    path: monitoring
+    fileName:
+      roomRealTime: room/roomRealTime-%d{yyyyMMdd}.log
+
+# 페이징 처리      
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+
+--- #local
+spring:
+  profiles: local
+server:
+  port: 8081
+  max-http-header-size: 400000
+  tomcat:
+    remoteip:
+      remote-ip-header: x-forwarded-for
+      protocol-header: x-forwarded-proto
+    max-connections: 500
+    connection-timeout: 60
+    accept-count: 2000
+    threads:
+      min-spare: 100
+      max: 500
+    basedir: /
+    accesslog:
+      enabled: true
+      directory: /logs/pltfapi/accesslog/
+      file-date-format: yyyy-MM-dd-HH
+      pattern: "%h %l %u %t %r %s %b %{Referer}i %{User-Agent}i %D %{Cookie}i %p %a %{remote}p %{X-Forwarded-For}i"
+
+# tmp파일 경로
+temp:
+  path: D:/tmp/fileUpload
+--- #dev
+spring:
+  profiles: dev
+server:
+  port: 8080
+  max-http-header-size: 40000
+  tomcat:
+    remoteip:
+      remote-ip-header: x-forwarded-for
+      protocol-header: x-forwarded-proto
+    max-connections: 500
+    connection-timeout: 60
+    accept-count: 2000
+    threads:
+      min-spare: 100
+      max: 500
+    basedir: /
+    accesslog:
+      enabled: true
+      directory: /logs/pltfapi/accesslog/
+      file-date-format: yyyy-MM-dd-HH
+      pattern: "%h %l %u %t %r %s %b %{Referer}i %{User-Agent}i %D %{Cookie}i %p %a %{remote}p %{X-Forwarded-For}i"
+
+# tmp파일 경로
+temp:
+  path: /home/ec2-user/tmp/fileUpload

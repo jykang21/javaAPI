@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="kr.co.softbridge.sobroplatform.ApiJunitTests" tests="29" skipped="0" failures="0" errors="0" timestamp="2021-09-08T02:16:39" hostname="DESKTOP-0D8580A" time="1.616">
+  <properties/>
+  <testcase name="svcVerify()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="1.098"/>
+  <testcase name="answerSubmit()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.058"/>
+  <testcase name="quizList()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.013"/>
+  <testcase name="realTimeLog()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.013"/>
+  <testcase name="fileList()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.008"/>
+  <testcase name="quizChange()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.016"/>
+  <testcase name="quizCreate()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.017"/>
+  <testcase name="quizDelete()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.015"/>
+  <testcase name="quizDetail()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.01"/>
+  <testcase name="meetingLogSave()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.021"/>
+  <testcase name="meetingLogView()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.011"/>
+  <testcase name="roomJoin()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.06"/>
+  <testcase name="roomList()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.014"/>
+  <testcase name="fastStart()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.019"/>
+  <testcase name="quizUpdate()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.019"/>
+  <testcase name="auth()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.017"/>
+  <testcase name="fileDownload()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.006"/>
+  <testcase name="roomCreate()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.016"/>
+  <testcase name="whiteBoardUpload()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.008"/>
+  <testcase name="roomDelete()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.017"/>
+  <testcase name="realTimeRoomList()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.027"/>
+  <testcase name="reStartStatus()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.014"/>
+  <testcase name="roomUpdate()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.025"/>
+  <testcase name="roomVerify()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.018"/>
+  <testcase name="getCodeList()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.013"/>
+  <testcase name="fileDelete()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.006"/>
+  <testcase name="roomOut()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.022"/>
+  <testcase name="gethealth()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.006"/>
+  <testcase name="fileUpload()" classname="kr.co.softbridge.sobroplatform.ApiJunitTests" time="0.006"/>
+  <system-out><![CDATA[[INFO ] 2021-09-08 11:16:34.799 [Test worker] SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [kr.co.softbridge.sobroplatform.ApiJunitTests], using SpringBootContextLoader
+[INFO ] 2021-09-08 11:16:34.808 [Test worker] AbstractContextLoader - Could not detect default resource locations for test class [kr.co.softbridge.sobroplatform.ApiJunitTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+[INFO ] 2021-09-08 11:16:34.808 [Test worker] AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [kr.co.softbridge.sobroplatform.ApiJunitTests]: ApiJunitTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+[INFO ] 2021-09-08 11:16:34.891 [Test worker] SpringBootTestContextBootstrapper - Found @SpringBootConfiguration kr.co.softbridge.sobroplatform.SobroplatformApplication for test class kr.co.softbridge.sobroplatform.ApiJunitTests
+[INFO ] 2021-09-08 11:16:34.985 [Test worker] SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+[INFO ] 2021-09-08 11:16:35.000 [Test worker] SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@5e9d8531, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@4f05ffc, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@4232aa68, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@82527ad, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@3aa39f95, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3caa2882, org.springframework.test.context.transaction.TransactionalTestExecutionListener@6b1ca495, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@4a25ee14, org.springframework.test.context.event.EventPublishingTestExecutionListener@6c5c9ff2, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@1df54c3, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@fe97061, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@6a597ac6, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@62f2db70, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@19f0e2a1, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@5d5ef386]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.4.5)
+
+[INFO ] 2021-09-08 11:16:35.246 [background-preinit] Version - HV000001: Hibernate Validator 6.1.7.Final
+[WARN ] 2021-09-08 11:16:35.272 [Test worker] DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer - 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/sb.jykang/.gradle/caches/modules-2/files-2.1/org.json/json/20190722/7bce7bacf0ab5e9f894d307a3de8b7f540064d5/json-20190722.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/sb.jykang/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+[INFO ] 2021-09-08 11:16:35.279 [Test worker] ApiJunitTests - Starting ApiJunitTests using Java 1.8.0_281 on DESKTOP-0D8580A with PID 31256 (started by sb.jykang in D:\project\sobroplatform)
+[INFO ] 2021-09-08 11:16:35.282 [Test worker] ApiJunitTests - The following profiles are active: dev
+[WARN ] 2021-09-08 11:16:35.468 [Test worker] ConfigDataEnvironment - Property 'spring.profiles' imported from location 'class path resource [application.yml]' is invalid and should be replaced with 'spring.config.activate.on-profile' [origin: class path resource [application.yml] - 112:13]
+[WARN ] 2021-09-08 11:16:35.469 [Test worker] ConfigDataEnvironment - Property 'spring.profiles' imported from location 'class path resource [application.yml]' is invalid and should be replaced with 'spring.config.activate.on-profile' [origin: class path resource [application.yml] - 98:13]
+[INFO ] 2021-09-08 11:16:36.859 [Test worker] PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@62b30f66' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] 2021-09-08 11:16:36.869 [Test worker] PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] 2021-09-08 11:16:38.140 [Test worker] EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
+[INFO ] 2021-09-08 11:16:38.294 [Test worker] PropertySourcedRequestMappingHandlerMapping - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+[INFO ] 2021-09-08 11:16:38.383 [Test worker] UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 5a829eb7-1e96-4e1e-9c10-284ba33af91c
+
+[INFO ] 2021-09-08 11:16:38.435 [Test worker] DefaultSecurityFilterChain - Will secure Ant [pattern='/h2-console/**'] with []
+[INFO ] 2021-09-08 11:16:38.436 [Test worker] DefaultSecurityFilterChain - Will secure Ant [pattern='/favicon.ico'] with []
+[INFO ] 2021-09-08 11:16:38.436 [Test worker] DefaultSecurityFilterChain - Will secure Ant [pattern='/v2/api-docs'] with []
+[INFO ] 2021-09-08 11:16:38.436 [Test worker] DefaultSecurityFilterChain - Will secure Ant [pattern='/swagger-resources/**'] with []
+[INFO ] 2021-09-08 11:16:38.436 [Test worker] DefaultSecurityFilterChain - Will secure Ant [pattern='/swagger-ui.html'] with []
+[INFO ] 2021-09-08 11:16:38.436 [Test worker] DefaultSecurityFilterChain - Will secure Ant [pattern='/webjars/**'] with []
+[INFO ] 2021-09-08 11:16:38.436 [Test worker] DefaultSecurityFilterChain - Will secure Ant [pattern='/swagger/**'] with []
+[INFO ] 2021-09-08 11:16:38.498 [Test worker] DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@124f4940, org.springframework.security.web.context.SecurityContextPersistenceFilter@4d6c6d03, org.springframework.security.web.header.HeaderWriterFilter@245e60fe, org.springframework.security.web.authentication.logout.LogoutFilter@6ffc0cb0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@356146c8, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6885e449, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1d595e35, org.springframework.security.web.session.SessionManagementFilter@6b46991d, org.springframework.security.web.access.ExceptionTranslationFilter@198d01d2]
+[INFO ] 2021-09-08 11:16:38.765 [Test worker] ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+[WARN ] 2021-09-08 11:16:38.935 [Test worker] ThymeleafAutoConfiguration$DefaultTemplateResolverConfiguration - Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+[INFO ] 2021-09-08 11:16:39.286 [Test worker] SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+[INFO ] 2021-09-08 11:16:39.286 [Test worker] TestDispatcherServlet - Initializing Servlet ''
+[INFO ] 2021-09-08 11:16:39.287 [Test worker] TestDispatcherServlet - Completed initialization in 1 ms
+[INFO ] 2021-09-08 11:16:39.315 [Test worker] DocumentationPluginsBootstrapper - Context refreshed
+[INFO ] 2021-09-08 11:16:39.334 [Test worker] DocumentationPluginsBootstrapper - Found 1 custom documentation plugin(s)
+[INFO ] 2021-09-08 11:16:39.366 [Test worker] ApiListingReferenceScanner - Scanning for api listing references
+[INFO ] 2021-09-08 11:16:39.572 [Test worker] CachingOperationNameGenerator - Generating unique operation named: handleUsingGET_1
+[INFO ] 2021-09-08 11:16:39.573 [Test worker] CachingOperationNameGenerator - Generating unique operation named: handleUsingGET_2
+[INFO ] 2021-09-08 11:16:39.659 [Test worker] ApiJunitTests - Started ApiJunitTests in 4.62 seconds (JVM running for 6.266)
+[INFO ] 2021-09-08 11:16:39.842 [Test worker] ApiJunitTests - {"svcToken":"abcdefg"}
+[INFO ] 2021-09-08 11:16:39.905 [Test worker] HikariDataSource - HikariPool-1 - Starting...
+[INFO ] 2021-09-08 11:16:40.660 [Test worker] connection - 1. Connection opened
+[INFO ] 2021-09-08 11:16:40.660 [Test worker] PoolBase - HikariPool-1 - Driver does not support get/set network timeout for connections. (net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy.getNetworkTimeout()I)
+[INFO ] 2021-09-08 11:16:40.672 [Test worker] HikariDataSource - HikariPool-1 - Start completed.
+[INFO ] 2021-09-08 11:16:40.683 [Test worker] LoginService - [svcVerify] paramMap={svcToken=abcdefg}
+[INFO ] 2021-09-08 11:16:40.683 [Test worker] CommonTokenService - [svcVerify] paramMap={svcToken=abcdefg}
+[DEBUG] 2021-09-08 11:16:40.730 [Test worker] sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT
+			TOKEN_IDX,
+			SITE_CODE,
+			TOKEN,
+			EXP_DATE,
+			REFRESH_YN,
+			REFRESH_TOKEN
+		FROM
+			TB_SOBRO_AUTH
+		WHERE
+			TOKEN = 'abcdefg'
+ {executed in 9 msec}
+[INFO ] 2021-09-08 11:16:40.741 [Test worker] resultsettable - 
+|----------|----------|------|---------|-----------|--------------|
+|token_idx |site_code |token |exp_date |refresh_yn |refresh_token |
+|----------|----------|------|---------|-----------|--------------|
+|----------|----------|------|---------|-----------|--------------|
+
+[INFO ] 2021-09-08 11:16:40.746 [Test worker] CommonTokenService - [svcVerify] ERROR_CODE=002004, ERROR_MSG=sobroAuth is null
+[INFO ] 2021-09-08 11:16:40.768 [Test worker] ApiJunitTests - false
+[INFO ] 2021-09-08 11:16:40.779 [Test worker] ApiJunitTests - {"quizNo":"1","quizChange":"123","roomCode":"10","roomToken":"efg","userId":"streamer1"}
+[INFO ] 2021-09-08 11:16:40.808 [Test worker] QuizService - [answerSubmit] answerSubmitRequestDto=AnswerSubmitRequestDto [roomToken=efg, roomCode=10, userId=streamer1, userNm=null, quizNo=1, quizAnswerList=null]
+[INFO ] 2021-09-08 11:16:40.809 [Test worker] QuizService - [answerSubmit] ERROR_CODE=000001, ERROR_MSG=필수 정보 누락
+[INFO ] 2021-09-08 11:16:40.820 [HikariPool-1 connection adder] connection - 2. Connection opened
+apiInfo: {"apiServiceNo":"ASN20210925111164082987","resTime":"2021-09-08 11:16:40","resText":"response: {resultCode:000001,resultMsg:필수 정보 누락}","svcNm":"다자간 영상회의","reqText":"request: {roomCode:10}","apiServiceNm":"정답 제출","apiReqServiceCode":"C","reqTime":"2021-09-08 11:16:40","reqResultCode":"000001"}
+[INFO ] 2021-09-08 11:16:40.831 [Test worker] TloLogService - [tloLog]startDate=[20210908111640801], endDate=[20210908111640815], reqResultCode=[000001], param=[{svcCode=null, roomCode=10}]
+[INFO ] 2021-09-08 11:16:40.832 [Test worker] TloLogService - > Result : IP Address : 127.0.0.1Header : remoteAddr
+[INFO ] 2021-09-08 11:16:40.832 [Test worker] TLO - [TLO_LOG] SEQ_ID=2021090811164083211164083|LOG_TIME=20210908111640|LOG_TYPE=SVC|SID=|RESULT_CODE=40101010|REQ_TIME=20210908111640801|RSP_TIME=20210908111640815|CLIENT_IP=127.0.0.1|DEV_INFO=PC|OS_INFO=|NW_INFO=|SVC_NAME=PLTFAPI|DEV_MODEL=|CARRIER_TYPE=|SVC_CODE=|SVC_CLASS=S010707|ROOM_CODE=10
+[INFO ] 2021-09-08 11:16:40.834 [Test worker] ApiJunitTests - {"resultCode":"000001","resultMsg":"?????? ????³´ ?????½"}
+[INFO ] 2021-09-08 11:16:40.839 [Test worker] ApiJunitTests - {"quizNo":"1","roomCode":"10","roomToken":"efg","userId":"streamer1"}
+[INFO ] 2021-09-08 11:16:40.842 [Test worker] QuizService - [quizList] quizListRequestDto=QuizListRequestDto [roomToken=efg, roomCode=10, userId=streamer1, userNm=null, managerAuth=null]
+[INFO ] 2021-09-08 11:16:40.842 [Test worker] QuizService - [quizList] ERROR_CODE=000001, ERROR_MSG=필수 정보 누락
+apiInfo: {"apiServiceNo":"ASN20210925111164084474","resTime":"2021-09-08 11:16:40","resText":"response: {resultCode:000001,resultMsg:필수 정보 누락}","svcNm":"다자간 영상회의","reqText":"request: {roomCode:10}","apiServiceNm":"퀴즈 목록","apiReqServiceCode":"R","reqTime":"2021-09-08 11:16:40","reqResultCode":"000001"}
+[INFO ] 2021-09-08 11:16:40.845 [Test worker] TloLogService - [tloLog]startDate=[20210908111640841], endDate=[20210908111640842], reqResultCode=[000001], param=[{svcCode=null, roomCode=10}]
+[INFO ] 2021-09-08 11:16:40.846 [Test worker] TloLogService - > Result : IP Address : 127.0.0.1Header : remoteAddr
+[INFO ] 2021-09-08 11:16:40.846 [Test worker] TLO - [TLO_LOG] SEQ_ID=2021090811164084511164084|LOG_TIME=20210908111640|LOG_TYPE=SVC|SID=|RESULT_CODE=40101010|REQ_TIME=20210908111640841|RSP_TIME=20210908111640842|CLIENT_IP=127.0.0.1|DEV_INFO=PC|OS_INFO=|NW_INFO=|SVC_NAME=PLTFAPI|DEV_MODEL=|CARRIER_TYPE=|SVC_CODE=|SVC_CLASS=S010701|ROOM_CODE=10
+[INFO ] 2021-09-08 11:16:40.848 [Test worker] ApiJunitTests - {"resultCode":"000001","resultMsg":"?????? ????³´ ?????½","quizList":null}
+[INFO ] 2021-09-08 11:16:40.853 [Test worker] ApiJunitTests - {"videoBitrate":"0","videoWidth":"0","videoAspectRatio":"0","audioLaency":"0","svcCode":"0","roomCode":"0","videoFrameRate":"0","userId":"0","audioBitrate":"0","audioSampleRate":"0","audioSampleSize":"0","videoHeight":"0"}
+[INFO ] 2021-09-08 11:16:40.860 [Test worker] MonitoringLogService - [roomRealTimeLog] paramMap=[{videoBitrate=0, videoWidth=0, videoAspectRatio=0, audioLaency=0, svcCode=0, roomCode=0, videoFrameRate=0, userId=0, audioBitrate=0, audioSampleRate=0, audioSampleSize=0, videoHeight=0}]
+[INFO ] 2021-09-08 11:16:40.860 [Test worker] CommonTokenService - [getRoomTokenCheck] ROOM TOKEN VERIFY START
+[INFO ] 2021-09-08 11:16:40.860 [Test worker] CommonTokenService - [getRoomTokenCheck] ERROR_CODE=000001, ERROR_MSG=필수 정보 누락
+[INFO ] 2021-09-08 11:16:40.860 [Test worker] CommonTokenService - [getRoomTokenCheck] ROOM TOKEN VERIFY END
+[INFO ] 2021-09-08 11:16:40.861 [Test worker] ApiJunitTests - 
+[INFO ] 2021-09-08 11:16:40.866 [Test worker] ApiJunitTests - {"svcToken":"efg","roomCode":"10","roomToken":"abcd"}
+[INFO ] 2021-09-08 11:16:40.870 [HikariPool-1 connection adder] connection - 3. Connection opened
+[INFO ] 2021-09-08 11:16:40.871 [Test worker] ApiJunitTests - 
+[INFO ] 2021-09-08 11:16:40.875 [Test worker] ApiJunitTests - {"quizNo":"1","quizChange":"123","roomCode":"10","roomToken":"efg","userId":"streamer1"}
+[INFO ] 2021-09-08 11:16:40.879 [Test worker] QuizService - [quizStart] quizStartRequestDto=QuizChangeRequestDto [roomToken=efg, roomCode=10, userId=streamer1, userNm=null]
+[INFO ] 2021-09-08 11:16:40.879 [Test worker] QuizService - [quizStart] ERROR_CODE=000001, ERROR_MSG=필수 정보 누락
+apiInfo: {"apiServiceNo":"ASN20210925111164088518","resTime":"2021-09-08 11:16:40","resText":"response: {resultCode:000001,resultMsg:필수 정보 누락}","svcNm":"다자간 영상회의","reqText":"request: {roomCode:10}","apiServiceNm":"퀴즈 상태 변경","apiReqServiceCode":"U","reqTime":"2021-09-08 11:16:40","reqResultCode":"000001"}
+[INFO ] 2021-09-08 11:16:40.886 [Test worker] TloLogService - [tloLog]startDate=[20210908111640876], endDate=[20210908111640884], reqResultCode=[000001], param=[{svcCode=null, roomCode=10}]
+[INFO ] 2021-09-08 11:16:40.886 [Test worker] TloLogService - > Result : IP Address : 127.0.0.1Header : remoteAddr
+[INFO ] 2021-09-08 11:16:40.886 [Test worker] TLO - [TLO_LOG] SEQ_ID=2021090811164088611164088|LOG_TIME=20210908111640|LOG_TYPE=SVC|SID=|RESULT_CODE=40101010|REQ_TIME=20210908111640876|RSP_TIME=20210908111640884|CLIENT_IP=127.0.0.1|DEV_INFO=PC|OS_INFO=|NW_INFO=|SVC_NAME=PLTFAPI|DEV_MODEL=|CARRIER_TYPE=|SVC_CODE=|SVC_CLASS=S010706|ROOM_CODE=10
+[INFO ] 2021-09-08 11:16:40.887 [Test worker] ApiJunitTests - {"resultCode":"000001","resultMsg":"?????? ????³´ ?????½"}
+[INFO ] 2021-09-08 11:16:40.892 [Test worker] ApiJunitTests - {"roomCode":"10","roomToken":"efg","userId":"streamer1"}
+[INFO ] 2021-09-08 11:16:40.897 [Test worker] QuizService - [quizCreate] quizCreateRequestDto=QuizCreateRequestDto [roomToken=efg, roomCode=10, userId=streamer1, userNm=null, title=null, runningTime=null, quizInfoList=null]
+[INFO ] 2021-09-08 11:16:40.897 [Test worker] QuizService - [quizCreate] ERROR_CODE=000001, ERROR_MSG=필수 정보 누락
+apiInfo: {"apiServiceNo":"ASN20210925111164090382","resTime":"2021-09-08 11:16:40","resText":"response: {resultCode:000001,resultMsg:필수 정보 누락}","svcNm":"다자간 영상회의","reqText":"request: {roomCode:10}","apiServiceNm":"퀴즈 생성","apiReqServiceCode":"C","reqTime":"2021-09-08 11:16:40","reqResultCode":"000001"}
+[INFO ] 2021-09-08 11:16:40.904 [Test worker] TloLogService - [tloLog]startDate=[20210908111640894], endDate=[20210908111640902], reqResultCode=[000001], param=[{svcCode=null, roomCode=10}]
+[INFO ] 2021-09-08 11:16:40.904 [HikariPool-1 connection adder] connection - 4. Connection opened
+[INFO ] 2021-09-08 11:16:40.904 [Test worker] TloLogService - > Result : IP Address : 127.0.0.1Header : remoteAddr
+[INFO ] 2021-09-08 11:16:40.904 [Test worker] TLO - [TLO_LOG] SEQ_ID=2021090811164090411164090|LOG_TIME=20210908111640|LOG_TYPE=SVC|SID=|RESULT_CODE=40101010|REQ_TIME=20210908111640894|RSP_TIME=20210908111640902|CLIENT_IP=127.0.0.1|DEV_INFO=PC|OS_INFO=|NW_INFO=|SVC_NAME=PLTFAPI|DEV_MODEL=|CARRIER_TYPE=|SVC_CODE=|SVC_CLASS=S010702|ROOM_CODE=10
+[INFO ] 2021-09-08 11:16:40.905 [Test worker] ApiJunitTests - {"resultCode":"000001","resultMsg":"?????? ????³´ ?????½","quizNo":null}
+[INFO ] 2021-09-08 11:16:40.909 [Test worker] ApiJunitTests - {"quizNo":"1","roomCode":"10","roomToken":"efg","userId":"streamer1"}
+[INFO ] 2021-09-08 11:16:40.913 [Test worker] QuizService - [quizDelete] quizDeleteRequestDto=QuizDeleteRequestDto [roomToken=efg, roomCode=10, userId=streamer1, userNm=null, quizNo=1]
+[INFO ] 2021-09-08 11:16:40.914 [Test worker] QuizService - [quizDelete] ERROR_CODE=000001, ERROR_MSG=필수 정보 누락
+apiInfo: {"apiServiceNo":"ASN20210925111164091956","resTime":"2021-09-08 11:16:40","resText":"response: {resultCode:000001,resultMsg:필수 정보 누락}","svcNm":"다자간 영상회의","reqText":"request: {roomCode:10}","apiServiceNm":"퀴즈 삭제","apiReqServiceCode":"U","reqTime":"2021-09-08 11:16:40","reqResultCode":"000001"}
+[INFO ] 2021-09-08 11:16:40.920 [Test worker] TloLogService - [tloLog]startDate=[20210908111640911], endDate=[20210908111640918], reqResultCode=[000001], param=[{svcCode=null, roomCode=10}]
+[INFO ] 2021-09-08 11:16:40.920 [Test worker] TloLogService - > Result : IP Address : 127.0.0.1Header : remoteAddr
+[INFO ] 2021-09-08 11:16:40.920 [Test worker] TLO - [TLO_LOG] SEQ_ID=2021090811164092011164092|LOG_TIME=20210908111640|LOG_TYPE=SVC|SID=|RESULT_CODE=40101010|REQ_TIME=20210908111640911|RSP_TIME=20210908111640918|CLIENT_IP=127.0.0.1|DEV_INFO=PC|OS_INFO=|NW_INFO=|SVC_NAME=PLTFAPI|DEV_MODEL=|CARRIER_TYPE=|SVC_CODE=|SVC_CLASS=S010704|ROOM_CODE=10
+[INFO ] 2021-09-08 11:16:40.921 [Test worker] ApiJunitTests - {"resultCode":"000001","resultMsg":"?????? ????³´ ?????½"}
+[INFO ] 2021-09-08 11:16:40.925 [Test worker] ApiJunitTests - {"quizNo":"1","roomCode":"10","roomToken":"efg","userId":"streamer1"}
+[INFO ] 2021-09-08 11:16:40.927 [Test worker] QuizService - [quizDetail] quizDetailRequestDto=QuizDetailRequestDto [roomToken=efg, roomCode=10, userId=streamer1, userNm=null, quizNo=1]
+[INFO ] 2021-09-08 11:16:40.927 [Test worker] QuizService - [quizDelete] ERROR_CODE=000001, ERROR_MSG=필수 정보 누락
+apiInfo: {"apiServiceNo":"ASN20210925111164092902","resTime":"2021-09-08 11:16:40","resText":"response: {resultCode:000001,resultMsg:필수 정보 누락}","svcNm":"다자간 영상회의","reqText":"request: {roomCode:10}","apiServiceNm":"퀴즈 상세","apiReqServiceCode":"R","reqTime":"2021-09-08 11:16:40","reqResultCode":"000001"}
+[INFO ] 2021-09-08 11:16:40.930 [Test worker] TloLogService - [tloLog]startDate=[20210908111640927], endDate=[20210908111640927], reqResultCode=[000001], param=[{svcCode=null, roomCode=10}]
+[INFO ] 2021-09-08 11:16:40.930 [Test worker] TloLogService - > Result : IP Address : 127.0.0.1Header : remoteAddr
+[INFO ] 2021-09-08 11:16:40.930 [Test worker] TLO - [TLO_LOG] SEQ_ID=2021090811164093011164093|LOG_TIME=20210908111640|LOG_TYPE=SVC|SID=|RESULT_CODE=40101010|REQ_TIME=20210908111640927|RSP_TIME=20210908111640927|CLIENT_IP=127.0.0.1|DEV_INFO=PC|OS_INFO=|NW_INFO=|SVC_NAME=PLTFAPI|DEV_MODEL=|CARRIER_TYPE=|SVC_CODE=|SVC_CLASS=S010705|ROOM_CODE=10
+[INFO ] 2021-09-08 11:16:40.932 [Test worker] ApiJunitTests - {"resultCode":"000001","resultMsg":"?????? ????³´ ?????½","quizNo":null,"title":null,"status":null,"startDt":null,"runningTime":null,"quizInfoList":null}
+[INFO ] 2021-09-08 11:16:40.935 [Test worker] ApiJunitTests - {"svcToken":"efg","roomCode":"10","roomToken":"abcd"}
+[INFO ] 2021-09-08 11:16:40.944 [Test worker] MeetingLogService - [saveMeetingLog] ERROR_CODE=000001, ERROR_MSG=필수 정보 누락
+[INFO ] 2021-09-08 11:16:40.948 [HikariPool-1 connection adder] connection - 5. Connection opened
+apiInfo: {"apiServiceNo":"ASN20210925111164095012","resTime":"2021-09-08 11:16:40","resText":"response: {resultCode:000001,resultMsg:필수 정보 누락}","svcNm":"다자간 영상회의","reqText":"request: {}","apiServiceNm":"회의록 내용 저장","apiReqServiceCode":"CU","reqTime":"2021-09-08 11:16:40","reqResultCode":"000001"}
+[INFO ] 2021-09-08 11:16:40.951 [Test worker] TloLogService - [tloLog]startDate=[20210908111640938], endDate=[20210908111640949], reqResultCode=[000001], param=[{svcCode=null, roomCode=null}]
+[INFO ] 2021-09-08 11:16:40.951 [Test worker] TloLogService - > Result : IP Address : 127.0.0.1Header : remoteAddr
+[INFO ] 2021-09-08 11:16:40.951 [Test worker] TLO - [TLO_LOG] SEQ_ID=2021090811164095111164095|LOG_TIME=20210908111640|LOG_TYPE=SVC|SID=|RESULT_CODE=40101010|REQ_TIME=20210908111640938|RSP_TIME=20210908111640949|CLIENT_IP=127.0.0.1|DEV_INFO=PC|OS_INFO=|NW_INFO=|SVC_NAME=PLTFAPI|DEV_MODEL=|CARRIER_TYPE=|SVC_CODE=|SVC_CLASS=S010602|ROOM_CODE=
+[INFO ] 2021-09-08 11:16:40.953 [Test worker] ApiJunitTests - {"roomCode":null,"meetingLogSeq":null,"contents":null,"resultCode":"000001","resultMsg":"?????? ????³´ ?????½"}
+[INFO ] 2021-09-08 11:16:40.959 [Test worker] ApiJunitTests - {"svcToken":"efg","roomCode":"10","roomToken":"abcd"}
+[INFO ] 2021-09-08 11:16:40.961 [Test worker] MeetingLogService - [selectMeetingLog] ERROR_CODE=000001, ERROR_MSG=필수 정보 누락
+apiInfo: {"apiServiceNo":"ASN20210925111164096138","resTime":"2021-09-08 11:16:40","resText":"response: {resultCode:000001,resultMsg:필수 정보 누락}","svcNm":"다자간 영상회의","reqText":"request: {svcToken:efg,roomCode:10,roomToken:abcd}","apiServiceNm":"회의록 내용 조회","apiReqServiceCode":"R","reqTime":"2021-09-08 11:16:40","reqResultCode":"000001"}
+[INFO ] 2021-09-08 11:16:40.962 [Test worker] TloLogService - [tloLog]startDate=[20210908111640961], endDate=[20210908111640961], reqResultCode=[000001], param=[{svcToken=efg, roomCode=10, roomToken=abcd}]
+[INFO ] 2021-09-08 11:16:40.962 [Test worker] TloLogService - > Result : IP Address : 127.0.0.1Header : remoteAddr
+[INFO ] 2021-09-08 11:16:40.962 [Test worker] TLO - [TLO_LOG] SEQ_ID=2021090811164096211164096|LOG_TIME=20210908111640|LOG_TYPE=SVC|SID=|RESULT_CODE=40101010|REQ_TIME=20210908111640961|RSP_TIME=20210908111640961|CLIENT_IP=127.0.0.1|DEV_INFO=PC|OS_INFO=|NW_INFO=|SVC_NAME=PLTFAPI|DEV_MODEL=|CARRIER_TYPE=|SVC_CODE=|SVC_CLASS=S010601|ROOM_CODE=10
+[INFO ] 2021-09-08 11:16:40.964 [Test worker] ApiJunitTests - {"roomCode":null,"meetingLogSeq":null,"contents":null,"resultCode":"000001","resultMsg":"?????? ????³´ ?????½"}
+[INFO ] 2021-09-08 11:16:40.968 [Test worker] ApiJunitTests - {"userNm":"김엘지","roomPw":"1234","roomCode":"10"}
+[INFO ] 2021-09-08 11:16:40.975 [Test worker] LoginService - [roomJoin] paramMap={userNm=김엘지, roomPw=1234, roomCode=10, device=PC, null, null, nowTime=2021-09-08 11:16:40}
+[INFO ] 2021-09-08 11:16:40.983 [HikariPool-1 connection adder] connection - 6. Connection opened
+[DEBUG] 2021-09-08 11:16:41.001 [Test worker] sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT 
+				ROOM_CODE		/* 방송 코드 */
+				, ROOM_TYPE		/* 방송 타입 */
+				, MEMBER_ID		/* 사용자 ID */
+				, MEMBER_SEQ	/* 사용자 순번 */
+				, MAX_PEOPLE	/* 최대 참여자 수 */
+				, TITLE			/* 제목 */
+				, QUALITY		/* 방송 품질(0: 참여자수, 1: 128, 2: 256, 3: 512, 4: 1024, 5: 2048, 6: 4096, 7: 8192) */
+				, START_DT		/* 방송 시작날짜 */
+				, END_DT		/* 방송 종료날짜 */
+				, VIEW_YN		/* 노출 여부 */
+				, ROOM_PW		/* 방송 비밀번호 */
+				, ROOM_STATUS	/* 방송 상태 */
+				, REC_TYPE		/* 녹화 타입 */
+				, DEL_YN		/* 삭제 여부 */
+				, SVC_CODE		/* 서비스 코드 */
+				, SCREEN_TYPE
+				, CASE WHEN DATE_FORMAT('2021-09-08 11:16:40', '%Y%m%d%H%I%S')  <  START_DT THEN 'Y' ELSE 'N' END AS START_ARRIVAL
+		 FROM	TB_ROOM_LIST
+
+		 		WHERE	DEL_YN = 'N'
+
+           		  AND	ROOM_CODE = '10'
+ {executed in 4 msec}
+[INFO ] 2021-09-08 11:16:41.007 [Test worker] resultsettable - 
+|----------|----------|----------|-----------|-----------|------------------------|--------|-----------|-----------|--------|-------------------------|------------|---------|-------|--------------------|------------|--------------|
+|room_code |room_type |member_id |member_seq |max_people |title                   |quality |start_dt   |end_dt     |view_yn |room_pw                  |room_status |rec_type |del_yn |svc_code            |screen_type |start_arrival |
+|----------|----------|----------|-----------|-----------|------------------------|--------|-----------|-----------|--------|-------------------------|------------|---------|-------|--------------------|------------|--------------|
+|10        |01        |streamer2 |46334530   |20         |2021년 08월 24일 방송자2님의 회의 |02      |2021-08-24 |2021-08-24 |Y       |oVf6dD69zfQW65ko+BcszA== |01          |01       |N      |d92kg9sf8dswc8sa810 |30          |N             |
+|----------|----------|----------|-----------|-----------|------------------------|--------|-----------|-----------|--------|-------------------------|------------|---------|-------|--------------------|------------|--------------|
+
+[INFO ] 2021-09-08 11:16:41.013 [Test worker] LoginService - [roomJoin] ERROR_CODE=001009, ERROR_MSG=회의 입장 비밀번호를 확인해 주세요.
+apiInfo: {"apiServiceNo":"ASN20210925111164102071","resTime":"2021-09-08 11:16:41","resText":"response: {resultCode:001009,maxPeople:0,resultMsg:회의 입장 비밀번호를 확인해 주세요.}","svcNm":"다자간 영상회의","reqText":"request: {userNm:김엘지,userLevel:2001,svcCode:d92kg9sf8dswc8sa810,roomPw:1234,roomCode:10,device:PC, null, null,nowTime:2021-09-08 11:16:40}","apiServiceNm":"방송 로그인","svcCode":"d92kg9sf8dswc8sa810","apiReqServiceCode":"R","reqTime":"2021-09-08 11:16:40","reqResultCode":"001009"}
+[INFO ] 2021-09-08 11:16:41.021 [Test worker] TloLogService - [tloLog]startDate=[20210908111640971], endDate=[20210908111641018], reqResultCode=[001009], param=[{userNm=김엘지, userLevel=2001, svcCode=d92kg9sf8dswc8sa810, roomPw=1234, roomCode=10, device=PC, null, null, nowTime=2021-09-08 11:16:40}]
+[INFO ] 2021-09-08 11:16:41.022 [Test worker] TloLogService - > Result : IP Address : 127.0.0.1Header : remoteAddr
+[INFO ] 2021-09-08 11:16:41.022 [Test worker] TLO - [TLO_LOG] SEQ_ID=2021090811164102211164102|LOG_TIME=20210908111641|LOG_TYPE=SVC|SID=|RESULT_CODE=40103050|REQ_TIME=20210908111640971|RSP_TIME=20210908111641018|CLIENT_IP=127.0.0.1|DEV_INFO=PC|OS_INFO=|NW_INFO=|SVC_NAME=PLTFAPI|DEV_MODEL=|CARRIER_TYPE=|SVC_CODE=d92kg9sf8dswc8sa810|SVC_CLASS=S010201|ROOM_CODE=10
+[INFO ] 2021-09-08 11:16:41.022 [HikariPool-1 connection adder] connection - 7. Connection opened
+[INFO ] 2021-09-08 11:16:41.025 [Test worker] ApiJunitTests - {"userId":null,"roomCode":null,"userNm":null,"userLevel":null,"maxPeople":0,"tokenIdx":null,"roomToken":null,"svcToken":null,"managerId":null,"quality":null,"resultCode":"001009","resultMsg":"?????? ?????? ?¹??°??²???¸??¼ ?????¸??´ ??¼??¸???.","screenType":null}
+[INFO ] 2021-09-08 11:16:41.029 [Test worker] ApiJunitTests - {"svcToken":"efg","roomToken":"abcd","roomType":"01"}
+[INFO ] 2021-09-08 11:16:41.034 [Test worker] RoomService - [RoomList] paramMap={svcToken=efg, roomToken=abcd, roomType=01}
+[INFO ] 2021-09-08 11:16:41.034 [Test worker] RoomService - [RoomList] ERROR_CODE=000001, ERROR_MSG=필수 정보 누락
+apiInfo: {"apiServiceNo":"ASN20210925111164103535","resTime":"2021-09-08 11:16:41","resText":"response: {roomCnt:0,resultCode:000001,resultMsg:필수 정보 누락}","svcNm":"다자간 영상회의","reqText":"request: {svcToken:efg,roomToken:abcd,roomType:01}","apiServiceNm":"방송 목록 조회","apiReqServiceCode":"R","reqTime":"2021-09-08 11:16:41","reqResultCode":"000001"}
+[INFO ] 2021-09-08 11:16:41.036 [Test worker] TloLogService - [tloLog]startDate=[20210908111641031], endDate=[20210908111641034], reqResultCode=[000001], param=[{svcToken=efg, roomToken=abcd, roomType=01}]
+[INFO ] 2021-09-08 11:16:41.037 [Test worker] TloLogService - > Result : IP Address : 127.0.0.1Header : remoteAddr
+[INFO ] 2021-09-08 11:16:41.037 [Test worker] TLO - [TLO_LOG] SEQ_ID=2021090811164103611164103|LOG_TIME=20210908111641|LOG_TYPE=SVC|SID=|RESULT_CODE=40101010|REQ_TIME=20210908111641031|RSP_TIME=20210908111641034|CLIENT_IP=127.0.0.1|DEV_INFO=PC|OS_INFO=|NW_INFO=|SVC_NAME=PLTFAPI|DEV_MODEL=|CARRIER_TYPE=|SVC_CODE=|SVC_CLASS=S010301|ROOM_CODE=
+[INFO ] 2021-09-08 11:16:41.039 [Test worker] ApiJunitTests - {"roomCnt":0,"roomList":null,"resultCode":"000001","resultMsg":"?????? ????³´ ?????½"}
+[INFO ] 2021-09-08 11:16:41.044 [Test worker] ApiJunitTests - {"svcToken":"efg","roomCode":"01","roomToken":"abcd"}
+[INFO ] 2021-09-08 11:16:41.049 [Test worker] RoomService - [fastStart] paramMap={svcToken=efg, roomCode=01, roomToken=abcd, device=PC, null, null, nowTime=2021-09-08 11:16:41}
+[INFO ] 2021-09-08 11:16:41.049 [Test worker] RoomService - [fastStart] ERROR_CODE=000001, ERROR_MSG=필수 정보 누락
+apiInfo: {"apiServiceNo":"ASN20210925111164105534","resTime":"2021-09-08 11:16:41","resText":"response: {resultCode:000001,maxPeople:0,resultMsg:필수 정보 누락}","svcNm":"다자간 영상회의","reqText":"request: {svcToken:efg,roomCode:01,roomToken:abcd,device:PC, null, null,nowTime:2021-09-08 11:16:41}","apiServiceNm":"방송 바로 시작","apiReqServiceCode":"C","reqTime":"2021-09-08 11:16:41","reqResultCode":"000001"}
+[INFO ] 2021-09-08 11:16:41.056 [Test worker] TloLogService - [tloLog]startDate=[20210908111641046], endDate=[20210908111641054], reqResultCode=[000001], param=[{svcToken=efg, roomCode=01, roomToken=abcd, device=PC, null, null, nowTime=2021-09-08 11:16:41}]
+[INFO ] 2021-09-08 11:16:41.056 [Test worker] TloLogService - > Result : IP Address : 127.0.0.1Header : remoteAddr
+[INFO ] 2021-09-08 11:16:41.057 [Test worker] TLO - [TLO_LOG] SEQ_ID=2021090811164105611164105|LOG_TIME=20210908111641|LOG_TYPE=SVC|SID=|RESULT_CODE=40101010|REQ_TIME=20210908111641046|RSP_TIME=20210908111641054|CLIENT_IP=127.0.0.1|DEV_INFO=PC|OS_INFO=|NW_INFO=|SVC_NAME=PLTFAPI|DEV_MODEL=|CARRIER_TYPE=|SVC_CODE=|SVC_CLASS=S010305|ROOM_CODE=01
+[INFO ] 2021-09-08 11:16:41.058 [Test worker] ApiJunitTests - {"roomCode":null,"roomToken":null,"svcCode":null,"roomType":null,"endDt":null,"maxPeople":0,"resultCode":"000001","resultMsg":"?????? ????³´ ?????½","quality":null,"screenType":null}
+[INFO ] 2021-09-08 11:16:41.063 [Test worker] ApiJunitTests - {"quizNo":"1","roomCode":"10","roomToken":"efg","userId":"streamer1"}
+[INFO ] 2021-09-08 11:16:41.068 [Test worker] QuizService - [quizUpdate] quizUpdateRequestDto=QuizCreateRequestDto [roomToken=efg, roomCode=10, userId=streamer1, userNm=null, title=null, runningTime=null, quizInfoList=null]
+[INFO ] 2021-09-08 11:16:41.068 [Test worker] QuizService - [quizUpdate] ERROR_CODE=000001, ERROR_MSG=필수 정보 누락
+apiInfo: {"apiServiceNo":"ASN20210925111164107408","resTime":"2021-09-08 11:16:41","resText":"response: {resultCode:000001,resultMsg:필수 정보 누락}","svcNm":"다자간 영상회의","reqText":"request: {roomCode:10}","apiServiceNm":"퀴즈 수정","apiReqServiceCode":"DC","reqTime":"2021-09-08 11:16:41","reqResultCode":"000001"}
+[INFO ] 2021-09-08 11:16:41.076 [Test worker] TloLogService - [tloLog]startDate=[20210908111641066], endDate=[20210908111641073], reqResultCode=[000001], param=[{svcCode=null, roomCode=10}]
+[INFO ] 2021-09-08 11:16:41.076 [Test worker] TloLogService - > Result : IP Address : 127.0.0.1Header : remoteAddr
+[INFO ] 2021-09-08 11:16:41.076 [Test worker] TLO - [TLO_LOG] SEQ_ID=2021090811164107611164107|LOG_TIME=20210908111641|LOG_TYPE=SVC|SID=|RESULT_CODE=40101010|REQ_TIME=20210908111641066|RSP_TIME=20210908111641073|CLIENT_IP=127.0.0.1|DEV_INFO=PC|OS_INFO=|NW_INFO=|SVC_NAME=PLTFAPI|DEV_MODEL=|CARRIER_TYPE=|SVC_CODE=|SVC_CLASS=S010703|ROOM_CODE=10
+[INFO ] 2021-09-08 11:16:41.077 [Test worker] ApiJunitTests - {"resultCode":"000001","resultMsg":"?????? ????³´ ?????½"}
+[INFO ] 2021-09-08 11:16:41.078 [HikariPool-1 connection adder] connection - 8. Connection opened
+[INFO ] 2021-09-08 11:16:41.083 [Test worker] ApiJunitTests - {"svcCode":"rumOWCvxRdpswCdLJI6Y","svcDomain":"https://localhost:8080"}
+[INFO ] 2021-09-08 11:16:41.087 [Test worker] LoginService - [auth] paramMap={svcCode=rumOWCvxRdpswCdLJI6Y, svcDomain=https://localhost:8080}
+[INFO ] 2021-09-08 11:16:41.088 [Test worker] LoginService - [auth] ERROR_CODE=000001, ERROR_MSG=필수 정보 누락
+apiInfo: {"apiServiceNo":"ASN20210925111164109474","resTime":"2021-09-08 11:16:41","resText":"response: {resultCode:000001,resultMsg:필수 정보 누락}","svcNm":"다자간 영상회의","reqText":"request: {svcCode:rumOWCvxRdpswCdLJI6Y,svcDomain:https://localhost:8080}","apiServiceNm":"방송 로그아웃","svcCode":"rumOWCvxRdpswCdLJI6Y","apiReqServiceCode":"D","reqTime":"2021-09-08 11:16:41","reqResultCode":"000001"}
+[INFO ] 2021-09-08 11:16:41.094 [Test worker] TloLogService - [tloLog]startDate=[20210908111641085], endDate=[20210908111641093], reqResultCode=[000001], param=[{svcCode=rumOWCvxRdpswCdLJI6Y, svcDomain=https://localhost:8080}]
+[INFO ] 2021-09-08 11:16:41.095 [Test worker] TloLogService - > Result : IP Address : 127.0.0.1Header : remoteAddr
+[INFO ] 2021-09-08 11:16:41.095 [Test worker] TLO - [TLO_LOG] SEQ_ID=2021090811164109511164109|LOG_TIME=20210908111641|LOG_TYPE=SVC|SID=|RESULT_CODE=40101010|REQ_TIME=20210908111641085|RSP_TIME=20210908111641093|CLIENT_IP=127.0.0.1|DEV_INFO=PC|OS_INFO=|NW_INFO=|SVC_NAME=PLTFAPI|DEV_MODEL=|CARRIER_TYPE=|SVC_CODE=rumOWCvxRdpswCdLJI6Y|SVC_CLASS=S010101|ROOM_CODE=
+[INFO ] 2021-09-08 11:16:41.096 [Test worker] ApiJunitTests - {"tokenInfo":null,"resultCode":"000001","resultMsg":"?????? ????³´ ?????½","svcTokenIdx":null}
+[INFO ] 2021-09-08 11:16:41.101 [Test worker] ApiJunitTests - {"svcToken":"efg","roomCode":"10","roomToken":"abcd"}
+[INFO ] 2021-09-08 11:16:41.104 [Test worker] ApiJunitTests - 
+[INFO ] 2021-09-08 11:16:41.108 [Test worker] ApiJunitTests - {"svcToken":"efg","roomToken":"abcd","roomType":"01"}
+[INFO ] 2021-09-08 11:16:41.112 [Test worker] RoomService - [createRoom] paramMap={svcToken=efg, roomToken=abcd, roomType=01, nowTime=2021-09-08 11:16:41}
+[INFO ] 2021-09-08 11:16:41.112 [Test worker] RoomService - [createRoom] ERROR_CODE=000001, ERROR_MSG=필수 정보 누락
+[INFO ] 2021-09-08 11:16:41.118 [HikariPool-1 connection adder] connection - 9. Connection opened
+apiInfo: {"apiServiceNo":"ASN20210925111164111834","resTime":"2021-09-08 11:16:41","resText":"response: {resultCode:000001,resultMsg:필수 정보 누락}","svcNm":"다자간 영상회의","reqText":"request: {svcToken:efg,roomToken:abcd,roomType:01,nowTime:2021-09-08 11:16:41}","apiServiceNm":"방송 생성","apiReqServiceCode":"C","reqTime":"2021-09-08 11:16:41","reqResultCode":"000001"}
+[INFO ] 2021-09-08 11:16:41.119 [Test worker] TloLogService - [tloLog]startDate=[20210908111641109], endDate=[20210908111641117], reqResultCode=[000001], param=[{svcToken=efg, roomToken=abcd, roomType=01, nowTime=2021-09-08 11:16:41}]
+[INFO ] 2021-09-08 11:16:41.119 [Test worker] TloLogService - > Result : IP Address : 127.0.0.1Header : remoteAddr
+[INFO ] 2021-09-08 11:16:41.119 [Test worker] TLO - [TLO_LOG] SEQ_ID=2021090811164111911164111|LOG_TIME=20210908111641|LOG_TYPE=SVC|SID=|RESULT_CODE=40101010|REQ_TIME=20210908111641109|RSP_TIME=20210908111641117|CLIENT_IP=127.0.0.1|DEV_INFO=PC|OS_INFO=|NW_INFO=|SVC_NAME=PLTFAPI|DEV_MODEL=|CARRIER_TYPE=|SVC_CODE=|SVC_CLASS=S010302|ROOM_CODE=
+[INFO ] 2021-09-08 11:16:41.120 [Test worker] ApiJunitTests - {"roomcode":null,"resultCode":"000001","resultMsg":"?????? ????³´ ?????½"}
+[INFO ] 2021-09-08 11:16:41.126 [Test worker] ApiJunitTests - {"svcToken":"efg","roomCode":"10","roomToken":"abcd"}
+[INFO ] 2021-09-08 11:16:41.129 [Test worker] ApiJunitTests - 
+[INFO ] 2021-09-08 11:16:41.133 [Test worker] ApiJunitTests - {"svcToken":"efg","roomToken":"abcd","roomType":"01"}
+[INFO ] 2021-09-08 11:16:41.137 [Test worker] RoomService - [deleteRoom] paramMap={svcToken=efg, roomToken=abcd, roomType=01, nowTime=2021-09-08 11:16:41}
+[INFO ] 2021-09-08 11:16:41.138 [Test worker] RoomService - [deleteRoom] ERROR_CODE=000001, ERROR_MSG=필수 정보 누락
+apiInfo: {"apiServiceNo":"ASN20210925111164114482","resTime":"2021-09-08 11:16:41","resText":"response: {resultCode:000001,resultMsg:필수 정보 누락}","svcNm":"다자간 영상회의","reqText":"request: {svcToken:efg,roomToken:abcd,roomType:01,nowTime:2021-09-08 11:16:41}","apiServiceNm":"방송 정보 삭제","apiReqServiceCode":"D","reqTime":"2021-09-08 11:16:41","reqResultCode":"000001"}
+[INFO ] 2021-09-08 11:16:41.145 [Test worker] TloLogService - [tloLog]startDate=[20210908111641134], endDate=[20210908111641143], reqResultCode=[000001], param=[{svcToken=efg, roomToken=abcd, roomType=01, nowTime=2021-09-08 11:16:41}]
+[INFO ] 2021-09-08 11:16:41.145 [Test worker] TloLogService - > Result : IP Address : 127.0.0.1Header : remoteAddr
+[INFO ] 2021-09-08 11:16:41.145 [Test worker] TLO - [TLO_LOG] SEQ_ID=2021090811164114511164114|LOG_TIME=20210908111641|LOG_TYPE=SVC|SID=|RESULT_CODE=40101010|REQ_TIME=20210908111641134|RSP_TIME=20210908111641143|CLIENT_IP=127.0.0.1|DEV_INFO=PC|OS_INFO=|NW_INFO=|SVC_NAME=PLTFAPI|DEV_MODEL=|CARRIER_TYPE=|SVC_CODE=|SVC_CLASS=S010304|ROOM_CODE=
+[INFO ] 2021-09-08 11:16:41.146 [Test worker] ApiJunitTests - {"roomcode":null,"resultCode":"000001","resultMsg":"?????? ????³´ ?????½"}
+[INFO ] 2021-09-08 11:16:41.151 [Test worker] ApiJunitTests - {"svcCode":"rumOWCvxRdpswCdLJI6Y","roomCode":"10"}
+[DEBUG] 2021-09-08 11:16:41.157 [Test worker] sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT
+			COUNT(*)
+		FROM 
+			TB_ROOM_LIST RL
+		WHERE
+			RL.SVC_CODE = 'rumOWCvxRdpswCdLJI6Y'
+		AND	RL.START_DT  <=  DATE_FORMAT('2021-09-08 11:16:41', '%Y-%m-%d %T')
+		AND	RL.END_DT  >=  DATE_FORMAT('2021-09-08 11:16:41', '%Y-%m-%d %T')
+		AND	RL.DEL_YN = 'N'
+ {executed in 3 msec}
+[INFO ] 2021-09-08 11:16:41.159 [Test worker] resultsettable - 
+|---------|
+|count(*) |
+|---------|
+|0        |
+|---------|
+
+[INFO ] 2021-09-08 11:16:41.160 [HikariPool-1 connection adder] connection - 10. Connection opened
+[DEBUG] 2021-09-08 11:16:41.164 [Test worker] sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT 
+			SUB_DATA.ROOM_CODE
+		    , SUB_DATA.SVC_CODE
+		    , SI.SVC_NM
+		    , SUB_DATA.MEMBER_ID
+		    , SUB_DATA.TITLE
+		    , CD.CODE_NM AS ROOM_TYPE_NM
+		    , (
+				SELECT	COUNT(TRU.USER_ID) 
+				  FROM	TB_ROOM_USER TRU 
+		          WHERE TRU.ROOM_CODE = SUB_DATA.ROOM_CODE
+
+				  AND	TRU.END_DT  >=  DATE_FORMAT('2021-09-08 11:16:41', '%Y-%m-%d %T')
+			  ) AS ONLINE_USER_CNT
+		    , SUB_DATA.START_DT
+		    , SUB_DATA.END_DT
+		FROM
+		(
+			SELECT
+				RL.ROOM_CODE,
+				RL.SVC_CODE,
+				RL.MEMBER_ID,
+				RL.TITLE,
+				RL.ROOM_TYPE,
+				RL.START_DT,
+				RL.END_DT
+			FROM 
+				TB_ROOM_LIST RL
+			WHERE
+				RL.SVC_CODE = 'rumOWCvxRdpswCdLJI6Y'
+
+			AND	RL.START_DT  <=  DATE_FORMAT('2021-09-08 11:16:41', '%Y-%m-%d %T')
+			AND	RL.END_DT  >=  DATE_FORMAT('2021-09-08 11:16:41', '%Y-%m-%d %T')
+			AND	RL.DEL_YN = 'N'
+
+			LIMIT 0, 50
+		) SUB_DATA
+		JOIN	TB_SVC_INFO SI
+		    ON	SI.SVC_CODE = SUB_DATA.SVC_CODE
+		JOIN	TB_CODE_DTL CD
+		    ON	CD.CODE_ID = SUB_DATA.ROOM_TYPE
+		   AND	CD.GRP_CODE = '01'
+ {executed in 4 msec}
+[INFO ] 2021-09-08 11:16:41.165 [Test worker] resultsettable - 
+|----------|---------|-------|----------|------|--------|----------------|---------|-------|
+|room_code |svc_code |svc_nm |member_id |title |code_nm |online_user_cnt |start_dt |end_dt |
+|----------|---------|-------|----------|------|--------|----------------|---------|-------|
+|----------|---------|-------|----------|------|--------|----------------|---------|-------|
+
+apiInfo: {"apiServiceNo":"ASN20210925111164117080","resTime":"2021-09-08 11:16:41","resText":"response: {roomCnt:0,resultCode:000000,roomList:[],resultMsg:성공}","svcNm":"다자간 영상회의","reqText":"request: {svcCode:rumOWCvxRdpswCdLJI6Y,pageSize:50,roomCode:10,pageNum:0,nowTime:2021-09-08 11:16:41}","apiServiceNm":"실시간 방송목록","svcCode":"rumOWCvxRdpswCdLJI6Y","apiReqServiceCode":"R","reqTime":"2021-09-08 11:16:41","reqResultCode":"000000"}
+[INFO ] 2021-09-08 11:16:41.172 [Test worker] TloLogService - [tloLog]startDate=[2021-09-08 11:16:41], endDate=[2021-09-08 11:16:41], reqResultCode=[000000], param=[{svcCode=rumOWCvxRdpswCdLJI6Y, pageSize=50, roomCode=10, pageNum=0, nowTime=2021-09-08 11:16:41}]
+[INFO ] 2021-09-08 11:16:41.172 [Test worker] TloLogService - > Result : IP Address : 127.0.0.1Header : remoteAddr
+[INFO ] 2021-09-08 11:16:41.172 [Test worker] TLO - [TLO_LOG] SEQ_ID=2021090811164117211164117|LOG_TIME=20210908111641|LOG_TYPE=SVC|SID=|RESULT_CODE=20000000|REQ_TIME=2021-09-08 11:16:41|RSP_TIME=2021-09-08 11:16:41|CLIENT_IP=127.0.0.1|DEV_INFO=PC|OS_INFO=|NW_INFO=|SVC_NAME=PLTFAPI|DEV_MODEL=|CARRIER_TYPE=|SVC_CODE=rumOWCvxRdpswCdLJI6Y|SVC_CLASS=S010501|ROOM_CODE=10
+[INFO ] 2021-09-08 11:16:41.174 [Test worker] ApiJunitTests - {"roomCnt":0,"roomList":[],"resultCode":"000000","resultMsg":"??±?³?"}
+[INFO ] 2021-09-08 11:16:41.178 [Test worker] ApiJunitTests - {"svcToken":"efg","roomCode":"10","userId":"streamer1"}
+[INFO ] 2021-09-08 11:16:41.180 [Test worker] RoomService - [RoomList] paramMap={svcToken=efg, roomCode=10, userId=streamer1, device=PC, null, null}
+[INFO ] 2021-09-08 11:16:41.180 [Test worker] CommonTokenService - [getSvcTokenInfo] SVC TOKEN VERIFY START
+[DEBUG] 2021-09-08 11:16:41.184 [Test worker] sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT
+			TOKEN_IDX,
+			SITE_CODE,
+			TOKEN,
+			EXP_DATE,
+			REFRESH_YN,
+			REFRESH_TOKEN
+		FROM
+			TB_SOBRO_AUTH
+		WHERE
+			TOKEN = 'efg'
+ {executed in 3 msec}
+[INFO ] 2021-09-08 11:16:41.184 [Test worker] resultsettable - 
+|----------|----------|------|---------|-----------|--------------|
+|token_idx |site_code |token |exp_date |refresh_yn |refresh_token |
+|----------|----------|------|---------|-----------|--------------|
+|----------|----------|------|---------|-----------|--------------|
+
+[INFO ] 2021-09-08 11:16:41.185 [Test worker] CommonTokenService - [getSvcTokenInfo] ERROR_CODE=002004, ERROR_MSG=sobroAuth is null(svcToken)
+[INFO ] 2021-09-08 11:16:41.185 [Test worker] CommonTokenService - [getSvcTokenInfo] SVC TOKEN VERIFY END
+[INFO ] 2021-09-08 11:16:41.185 [Test worker] RoomService - [reStartStatus] ERROR_CODE=002004, ERROR_MSG=토큰이 유효하지 않습니다.
+apiInfo: {"apiServiceNo":"ASN20210925111164118614","resTime":"2021-09-08 11:16:41","resText":"response: {resultCode:002004,resultMsg:토큰이 유효하지 않습니다.}","svcNm":"다자간 영상회의","reqText":"request: {svcToken:efg,roomCode:10,userId:streamer1,device:PC, null, null}","apiServiceNm":"방송 재시작 상태변경","apiReqServiceCode":"C","reqTime":"2021-09-08 11:16:41","reqResultCode":"002004"}
+[INFO ] 2021-09-08 11:16:41.187 [Test worker] TloLogService - [tloLog]startDate=[20210908111641180], endDate=[20210908111641185], reqResultCode=[002004], param=[{svcToken=efg, roomCode=10, userId=streamer1, device=PC, null, null}]
+[INFO ] 2021-09-08 11:16:41.187 [Test worker] TloLogService - > Result : IP Address : 127.0.0.1Header : remoteAddr
+[INFO ] 2021-09-08 11:16:41.187 [Test worker] TLO - [TLO_LOG] SEQ_ID=2021090811164118711164118|LOG_TIME=20210908111641|LOG_TYPE=SVC|SID=|RESULT_CODE=40104040|REQ_TIME=20210908111641180|RSP_TIME=20210908111641185|CLIENT_IP=127.0.0.1|DEV_INFO=PC|OS_INFO=|NW_INFO=|SVC_NAME=PLTFAPI|DEV_MODEL=|CARRIER_TYPE=|SVC_CODE=|SVC_CLASS=S010306|ROOM_CODE=10
+[INFO ] 2021-09-08 11:16:41.189 [Test worker] ApiJunitTests - {"resultCode":"002004","resultMsg":"?????°??´ ?????¨????§? ???????????¤."}
+[INFO ] 2021-09-08 11:16:41.193 [Test worker] ApiJunitTests - {"svcToken":"efg","roomToken":"abcd","roomType":"01"}
+[INFO ] 2021-09-08 11:16:41.198 [Test worker] RoomService - [updateRoom] paramMap={svcToken=efg, roomToken=abcd, roomType=01, nowTime=2021-09-08 11:16:41}
+[INFO ] 2021-09-08 11:16:41.198 [Test worker] RoomService - [updateRoom] ERROR_CODE=000001, ERROR_MSG=필수 정보 누락
+apiInfo: {"apiServiceNo":"ASN20210925111164120463","resTime":"2021-09-08 11:16:41","resText":"response: {resultCode:000001,resultMsg:필수 정보 누락}","svcNm":"다자간 영상회의","reqText":"request: {svcToken:efg,roomToken:abcd,roomType:01,nowTime:2021-09-08 11:16:41}","apiServiceNm":"방송 정보 수정","apiReqServiceCode":"U","reqTime":"2021-09-08 11:16:41","reqResultCode":"000001"}
+[INFO ] 2021-09-08 11:16:41.204 [Test worker] TloLogService - [tloLog]startDate=[20210908111641194], endDate=[20210908111641203], reqResultCode=[000001], param=[{svcToken=efg, roomToken=abcd, roomType=01, nowTime=2021-09-08 11:16:41}]
+[INFO ] 2021-09-08 11:16:41.205 [Test worker] TloLogService - > Result : IP Address : 127.0.0.1Header : remoteAddr
+[INFO ] 2021-09-08 11:16:41.205 [Test worker] TLO - [TLO_LOG] SEQ_ID=2021090811164120511164120|LOG_TIME=20210908111641|LOG_TYPE=SVC|SID=|RESULT_CODE=40101010|REQ_TIME=20210908111641194|RSP_TIME=20210908111641203|CLIENT_IP=127.0.0.1|DEV_INFO=PC|OS_INFO=|NW_INFO=|SVC_NAME=PLTFAPI|DEV_MODEL=|CARRIER_TYPE=|SVC_CODE=|SVC_CLASS=S010303|ROOM_CODE=
+[INFO ] 2021-09-08 11:16:41.206 [Test worker] ApiJunitTests - {"roomcode":null,"resultCode":"000001","resultMsg":"?????? ????³´ ?????½"}
+[INFO ] 2021-09-08 11:16:41.220 [Test worker] ApiJunitTests - {"roomToken":"abcdefg"}
+[INFO ] 2021-09-08 11:16:41.224 [Test worker] LoginService - [roomVerify] paramMap={roomToken=abcdefg}
+[INFO ] 2021-09-08 11:16:41.224 [Test worker] CommonTokenService - [roomVerify] paramMap={roomToken=abcdefg}
+[DEBUG] 2021-09-08 11:16:41.228 [Test worker] sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT
+			TOKEN_IDX,
+			SITE_CODE,
+			TOKEN,
+			EXP_DATE,
+			REFRESH_YN,
+			REFRESH_TOKEN
+		FROM
+			TB_SOBRO_AUTH
+		WHERE
+			TOKEN = 'abcdefg'
+ {executed in 3 msec}
+[INFO ] 2021-09-08 11:16:41.228 [Test worker] resultsettable - 
+|----------|----------|------|---------|-----------|--------------|
+|token_idx |site_code |token |exp_date |refresh_yn |refresh_token |
+|----------|----------|------|---------|-----------|--------------|
+|----------|----------|------|---------|-----------|--------------|
+
+[INFO ] 2021-09-08 11:16:41.229 [Test worker] CommonTokenService - [roomVerify] ERROR_CODE=002004, ERROR_MSG=sobroAuth is null(roomToken)
+[INFO ] 2021-09-08 11:16:41.234 [Test worker] ApiJunitTests - false
+[INFO ] 2021-09-08 11:16:41.238 [Test worker] ApiJunitTests - {"grpCode":"01"}
+[DEBUG] 2021-09-08 11:16:41.242 [Test worker] sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT
+			CODE_ID
+			, CODE_NM
+			, GRP_CODE
+			, CODE_DESC
+		FROM TB_CODE_DTL
+		WHERE GRP_CODE = '01'
+		  AND USE_YN = 'Y'
+ {executed in 3 msec}
+[INFO ] 2021-09-08 11:16:41.243 [Test worker] resultsettable - 
+|--------|--------|---------|----------|
+|code_id |code_nm |grp_code |code_desc |
+|--------|--------|---------|----------|
+|01      |화상회의    |01       |          |
+|02      |M:N 방송  |01       |          |
+|03      |1:N 방송  |01       |          |
+|--------|--------|---------|----------|
+
+apiInfo: {"apiServiceNo":"ASN20210925111164124674","resTime":"2021-09-08 11:16:41","resText":"response: {result:true,codeList:[{codeId:01,codeDesc:,grpCode:01,codeNm:화상회의},{codeId:02,codeDesc:,grpCode:01,codeNm:M:N 방송},{codeId:03,codeDesc:,grpCode:01,codeNm:1:N 방송}]}","svcNm":"다자간 영상회의","reqText":"request: {grpCode:01}","apiServiceNm":"공통코드 조회","apiReqServiceCode":"R","reqTime":"2021-09-08 11:16:41","reqResultCode":"0000"}
+[INFO ] 2021-09-08 11:16:41.248 [Test worker] ApiJunitTests - {"result":true,"error":null,"grpList":null,"codeList":[{"grpCode":"01","codeId":"01","codeNm":"????????????","useYn":null,"codeDesc":""},{"grpCode":"01","codeId":"02","codeNm":"M:N ?°???¡","useYn":null,"codeDesc":""},{"grpCode":"01","codeId":"03","codeNm":"1:N ?°???¡","useYn":null,"codeDesc":""}],"errorDescription":null}
+[INFO ] 2021-09-08 11:16:41.252 [Test worker] ApiJunitTests - {"svcToken":"efg","roomCode":"10","roomToken":"abcd"}
+[INFO ] 2021-09-08 11:16:41.254 [Test worker] ApiJunitTests - 
+[INFO ] 2021-09-08 11:16:41.259 [Test worker] ApiJunitTests - {"roomCode":"10","userId":"1234","roomToken":"abcd"}
+[INFO ] 2021-09-08 11:16:41.264 [Test worker] LoginService - [roomOut] paramMap={roomCode=10, userId=1234, roomToken=abcd, nowTime=2021-09-08 11:16:41}
+[DEBUG] 2021-09-08 11:16:41.269 [Test worker] sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT 
+				U.ROOM_CODE			/* 방송코드 */
+				, U.USER_ID		/* 사용자 ID */
+				, U.USER_NM		/* 사용자 이름 */
+				, U.USER_LEVEL	/* 사용자 레벨 */
+				, U.TOKEN_IDX		/* 토큰 인덱스 */
+				, U.SVC_CODE		/* 서비스 코드 */
+				, L.MEMBER_ID AS MANAGER_ID	/* 매니저ID */
+		 FROM	TB_ROOM_USER U
+		 JOIN	TB_ROOM_LIST L
+		   ON	U.ROOM_CODE = L.ROOM_CODE
+		WHERE	U.ROOM_CODE = '10'
+
+			AND	U.USER_ID = '1234'
+ {executed in 3 msec}
+[INFO ] 2021-09-08 11:16:41.270 [Test worker] resultsettable - 
+|----------|--------|--------|-----------|----------|---------|----------|
+|room_code |user_id |user_nm |user_level |token_idx |svc_code |member_id |
+|----------|--------|--------|-----------|----------|---------|----------|
+|----------|--------|--------|-----------|----------|---------|----------|
+
+[INFO ] 2021-09-08 11:16:41.270 [Test worker] LoginService - [roomOut] ERROR_CODE=001006, ERROR_MSG=사용자 정보를 찾을 수 없습니다.
+apiInfo: {"apiServiceNo":"ASN20210925111164127608","resTime":"2021-09-08 11:16:41","resText":"response: {resultCode:001006,resultMsg:사용자 정보를 찾을 수 없습니다.}","svcNm":"다자간 영상회의","reqText":"request: {roomCode:10,userId:1234,roomToken:abcd,nowTime:2021-09-08 11:16:41}","apiServiceNm":"방송 로그아웃","apiReqServiceCode":"D","reqTime":"2021-09-08 11:16:41","reqResultCode":"001006"}
+[INFO ] 2021-09-08 11:16:41.277 [Test worker] TloLogService - [tloLog]startDate=[20210908111641261], endDate=[20210908111641275], reqResultCode=[001006], param=[{roomCode=10, userId=1234, roomToken=abcd, nowTime=2021-09-08 11:16:41}]
+[INFO ] 2021-09-08 11:16:41.277 [Test worker] TloLogService - > Result : IP Address : 127.0.0.1Header : remoteAddr
+[INFO ] 2021-09-08 11:16:41.277 [Test worker] TLO - [TLO_LOG] SEQ_ID=2021090811164127711164127|LOG_TIME=20210908111641|LOG_TYPE=SVC|SID=|RESULT_CODE=40103020|REQ_TIME=20210908111641261|RSP_TIME=20210908111641275|CLIENT_IP=127.0.0.1|DEV_INFO=PC|OS_INFO=|NW_INFO=|SVC_NAME=PLTFAPI|DEV_MODEL=|CARRIER_TYPE=|SVC_CODE=|SVC_CLASS=S010202|ROOM_CODE=10
+[INFO ] 2021-09-08 11:16:41.278 [Test worker] ApiJunitTests - {"resultCode":"001006","resultMsg":"????????? ????³´??¼ ?°¾??? ??? ???????????¤."}
+[INFO ] 2021-09-08 11:16:41.285 [Test worker] ApiJunitTests - response ::: 
+[INFO ] 2021-09-08 11:16:41.290 [Test worker] ApiJunitTests - {"svcToken":"efg","roomCode":"10","roomToken":"abcd"}
+[INFO ] 2021-09-08 11:16:41.292 [Test worker] ApiJunitTests - 
+]]></system-out>
+  <system-err><![CDATA[Loading class `com.mysql.jdbc.Driver'. This is deprecated. The new driver class is `com.mysql.cj.jdbc.Driver'. The driver is automatically registered via the SPI and manual loading of the driver class is generally unnecessary.
+]]></system-err>
+</testsuite>

@@ -1,0 +1,87 @@
+spring:
+  devtools:
+    livereload:
+      enabled: true
+  servlet:
+    multipart:
+      max-file-size: 104857600
+      max-request-size: 104857600
+  datasource:
+    url: jdbc:log4jdbc:mysql://rds-stg-ulsp-cluster.cluster-c3akalsq2r9y.ap-northeast-2.rds.amazonaws.com:3306/sobro?characterEncoding=utf8&useSSL=false
+    username: sobro
+    password: sobro!21
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+
+primary:
+  datasource:
+    jdbc-url: jdbc:log4jdbc:mysql://rds-stg-ulsp-cluster.cluster-c3akalsq2r9y.ap-northeast-2.rds.amazonaws.com:3306/live?characterEncoding=utf8&useSSL=false
+    username: live
+    password: live!21
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+
+secondary:
+  datasource:
+    jdbc-url: jdbc:log4jdbc:mysql://rds-stg-ulsp-cluster.cluster-c3akalsq2r9y.ap-northeast-2.rds.amazonaws.com:3306/vod?characterEncoding=utf8&useSSL=false
+    username: vod
+    password: vod!21
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+
+platform:
+  aes256:
+    key: 1234567890123456
+
+jwt:
+  header: Authorization
+  secret: softbridge2021broadcastingserviceversion1lgUplusplatform2021and2023project
+  token-validity-in-seconds: 86400
+  type:
+    BRO: broadcasting-login
+    USER: user-login
+
+cloud:
+  aws:
+    credentials:
+      roleArn: 'arn:aws:iam::680121671461:role/ULSP-DEVELOPER'
+      roleSessionName: i-01668b5e5a7231963
+      profileName: default
+    s3:
+      vodBucket: s3-stg-ulsp-vod
+      recBucket: s3-stg-ulsp-record
+      attachBucket: s3-stg-ulsp-attach
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    cloudFront:
+      keyPairId: APKAI7FTZ4KR7EHKAWGQ
+      privateKey: aws/privateKey_stg.der
+      fileDomain: file.qa.ulsp.uplus.co.kr
+      vodDomain: vod.qa.ulsp.uplus.co.kr
+      recDomain: rec.qa.ulsp.uplus.co.kr
+      signType: canned
+    whiteboard:
+      filePath: whiteboard
+      
+logging:
+  config: classpath:log4j2.yml
+
+server:
+  port: 8080
+  max-http-header-size: 400000
+  tomcat:
+    remoteip:
+      remote-ip-header: x-forwarded-for
+      protocol-header: x-forwarded-proto
+
+file:
+  monitoring:
+    path: monitoring
+    fileName:
+      roomRealTime: room/roomRealTime-%d{yyyyMMdd}.log
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+
+temp:
+  path: /home/ec2-user/tmp/fileUpload
